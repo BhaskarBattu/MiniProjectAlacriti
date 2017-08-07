@@ -1,0 +1,38 @@
+.tblcolor{
+    background-color: darkgrey;
+    width: 100%;
+    height: 100%;
+    border: none;
+    align-items: center;
+    border-collapse: collapse;
+    margin-bottom: 0px;
+
+}
+.selection{
+    font-size: 13pt;
+    align-items: center;
+    align-content: center;
+    display:inline-block;
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    padding-left: 5%;
+}
+#textboxid
+{
+    height: 30px;
+    width: 465px;
+    font-size:10pt;
+    padding-left: 5ch;
+    padding-right: 2ch;
+}
+#image{
+ width: 10%;
+    align-items: center;
+}
+
+
+.ddsmoothmenu ul{z-index:100;margin:0;padding:0;list-style-type:none}
+.ddsmoothmenu ul li{position:relative;display:inline;float:left;overflow:hidden;}
+.ddsmoothmenu ul li a{display:block;background-color: #11a286;color:#fff;font-size:15px;padding:0.9em;text-decoration:none}*
+                                                                                                                           html .ddsmoothmenu ul li a{display:inline-block}.ddsmoothmenu ul li a:link,.ddsmoothmenu ul li a:visited{color:#fff}.ddsmoothmenu ul li a.selected{/*background-image:url(images/me8.gif);*/background-image:url(images/me8.gif);color:#0b5849;/*border-top:2px solid orange;*/}.ddsmoothmenu ul li a:hover{/*background-image:url(images/me8.gif);*/background-color:#19bf9f;text-decoration:none}.ddsmoothmenu ul li ul{position:absolute;left:0;display:none;visibility:hidden}.ddsmoothmenu ul li ul li{display:list-item;float:none}.ddsmoothmenu ul li ul li ul{top:0}.ddsmoothmenu ul li ul li a{font:400 11px verdana;width:155px;margin:0;border-top-width:0;padding:3px;top:0}* html .ddsmoothmenu{height:0}.downarrowclass{position:absolute;top:9px;right:5px}.rightarrowclass{position:absolute;top:6px;right:5px}.ddshadow{position:absolute;left:0;top:0;width:0;height:0;background:silver}.toplevelshadow{opacity:.8}

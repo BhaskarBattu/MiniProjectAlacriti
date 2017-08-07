@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Description</title>
+</head>
+<body>
+
+<table border="2" align="center">
+    <tr>
+        <td colspan="4">
+            <h1>Movies Bonanja</h1>
+            <h2>Hello, You are watching movie {{this.parseMovie}}</h2>
+</td>
+    </tr><tr>
+    <td>
+    <div>
+        <img class="image" src="{{this.parseMoviePath}}"/>
+
+    </div>
+</td><!--
+    <td style="text-align: right; width: 100%">
+       <h2> Movie Name:{{this.parseMovie}}</h2>
+    </td>-->
+    <td width="60%" height="100%" align="cneter">
+            <div *ngFor="let movies of movieResponsePrint">
+                <div class="module movie">
+                    <div> <span style="color: rebeccapurple;padding-right: 10%;padding-left: 15%">{{movies.actorProfession}} : </span> <span style="color: darkred;">{{movies.actors}}</span><br></div>
+                </div>
+             <div>   <span style="padding-left: 15%; color: #039be5">GenreType</span>:<span style="color: black">{{movies.genreType}}</span></div>
+            </div>
+
+    </td>
+</tr>
+    <tr>
+        <td colspan="1">
+
+        </td>
+        <td>
+            Hello
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1">
+
+        </td>
+        <td>
+            Hello
+        </td>
+    </tr>
+</table>
+
+
+<button (click)="goBack()">Back</button>
+
+</body>
+</html>
