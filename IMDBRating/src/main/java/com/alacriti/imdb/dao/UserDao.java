@@ -6,9 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.alacriti.imdb.model.vo.ListedMovieComments;
+import com.alacriti.imdb.model.vo.MovieComments;
 import com.alacriti.imdb.model.vo.MovieDetails;
 import com.alacriti.imdb.model.vo.MovieReturnFileds;
+import com.alacriti.imdb.model.vo.Search;
+import com.alacriti.imdb.model.vo.SearchAllThings;
 import com.alacriti.imdb.model.vo.TopRatedMovieTvshows;
+import com.alacriti.imdb.model.vo.UserCommnets;
 import com.alacriti.imdb.model.vo.UserRegistration;
 
 public class UserDao extends BaseDAO{
@@ -30,7 +35,7 @@ public class UserDao extends BaseDAO{
 			//System.out.println("Coming");
 			stmt.setString(1, userRoleVO.getEmail());
 			rs= stmt.executeQuery();
-		//	System.out.println("executed...");
+			//System.out.println("executed..."+ userRoleVO.getEmail());
 			/*if(rs!=null){
 				System.out.println("Exception in getPreparedStatementCreateUser bhaskar:flag");
 			}
@@ -107,7 +112,7 @@ public class UserDao extends BaseDAO{
 			
 		} catch (SQLException e) {
 			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
-			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			System.out.println("Exception in getPrepared    Statement Create User  " + e.getMessage());
 			throw e;
 			
 		}
@@ -140,7 +145,7 @@ public class UserDao extends BaseDAO{
 			stmt.setString(1, userRoleVO.getEmail());
 			stmt.setString(2, userRoleVO.getPassword());
 			rs= stmt.executeQuery();
-			System.out.println("coming");
+			//System.out.println("coming");
 			if(rs.next())
 			{
 				userRoleVO.setRegCreated(true);
@@ -177,7 +182,7 @@ public class UserDao extends BaseDAO{
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementTopRatedMovieTvShows(getConnection(), sqlCmd, topRatedMovieTV);
 			rs= stmt.executeQuery();
-			System.out.println("coming tv");
+			//System.out.println("coming tv");
 			while(rs.next())
 			{
 				topRatedMovieTV.setMoviename(rs.getString(1));
@@ -221,40 +226,7 @@ public class UserDao extends BaseDAO{
 			//System.out.println("movie coming");
 			while(rs.next())
 			{
-						
-					/*	//System.out.println(rs.getString(1));
-						movieretunFileds.setActors(rs.getString(1));
-//						System.out.println(rs.getString(1));
-						movieretunFileds.setActorProfession(rs.getString(2));
-						movieretunFileds.setDate(rs.getString(3));
-						movieretunFileds.setDescription(rs.getString(4));
-						movieretunFileds.setImagePath(rs.getString(5));
-						movieretunFileds.setGenreType(rs.getString(6));*/
-						
 						movieReturn.add(new  MovieReturnFileds(rs.getString(1),rs.getString(6),rs.getString(2),rs.getString(4),rs.getString(3),rs.getString(5)));
-						
-						/*movieDetails.setMovieGett(movieReturn);
-						movieReturn.add(movieretunFileds);
-						System.out.println("moviereturn  "+movieretunFileds);
-						*/
-				/*
-					movieDetails.getMovieFields().setActors(rs.getString(1));
-					System.out.println(rs.getString(1));
-					movieDetails.getMovieFields().setActorProfession(rs.getString(2));
-					movieDetails.getMovieFields().setDate(rs.getString(3));
-					movieDetails.getMovieFields().setDescription(rs.getString(4));
-					movieDetails.getMovieFields().setDescription(rs.getString(4));
-					movieDetails.getMovieFields().setGenreType(rs.getString(6));
-					movieReturn.add(movieDetails);
-				
-						System.out.println("moviereturn  d "+movieReturn.toString());
-						for(MovieReturnFileds s: movieReturn){
-							System.out.println("ssss"+s.getActors());
-							System.out.println("ssss"+s.getActorProfession());
-							
-							
-						}
-						System.out.println("moviereturn  d "+movieReturn);*/
 			}
 			movieDetails.setMovieGett(movieReturn);
 			getConnection().commit();
@@ -283,4 +255,289 @@ public class UserDao extends BaseDAO{
 		}
 	}
 	
+	public void displaySearchDetailsDAO(String searchTerm,Search searcTerm) {//throws DAOException{
+		//log.debugPrintCurrentMethodName();
+		PreparedStatement stmt = null,stmt1=null;
+		
+		ResultSet rs = null;
+		ArrayList<SearchAllThings> searchitms=new ArrayList<SearchAllThings>();
+		//ArrayList<String> searchitms=new ArrayList<String>();
+		
+	//	MovieReturnFileds movieretunFileds;
+		try {
+			String sqlCmd = "sql command";
+			stmt= getPreparedStatementSearchDetails(getConnection(), sqlCmd, searchTerm);
+			rs= stmt.executeQuery();
+			System.out.println("hai");
+			while(rs.next())
+			{
+						
+				searchitms.add(new SearchAllThings(rs.getString(1)));
+				//System.out.println(rs.getString(1));
+					
+			}
+			searcTerm.setSearchAllItems(searchitms);
+			//System.out.println(searchitms.getSearchAllItems());
+			getConnection().commit();
+			
+		} catch (SQLException e) {
+			System.out.println("SQLException in createUserRole()"+e);
+		} finally {
+			close(stmt, rs);
+			close(stmt1,rs);
+		}
+	}
+	public PreparedStatement getPreparedStatementSearchDetails(Connection connection, String sqlCmd, String searchTerm) throws SQLException{
+		try {
+			return connection.prepareStatement("select tvshowname from Al237_imdb_tvshowslist where tvshowname like '%"+searchTerm+"%' union select moviename from Al237_imdb_movieslist where moviename like '%"+searchTerm+"%'");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
+	
+	public void getSearchDetailsDAO(MovieDetails movieDetails) {//throws DAOException{
+		//log.debugPrintCurrentMethodName();
+		PreparedStatement stmt = null,stmt1=null;
+		
+		ResultSet rs = null;
+		ArrayList<MovieReturnFileds> movieReturn=new ArrayList<MovieReturnFileds>();
+		
+	//	MovieReturnFileds movieretunFileds;
+		try {
+			String sqlCmd = "sql command";
+			stmt= getPreparedStatementgetSearchDetails(getConnection(), sqlCmd, movieDetails);
+			//stmt.setString(1, movieDetails.getMoviename());
+			rs= stmt.executeQuery();
+			//System.out.println("movie coming");
+			while(rs.next())
+			{
+						movieReturn.add(new  MovieReturnFileds(rs.getString(1),rs.getString(6),rs.getString(2),rs.getString(4),rs.getString(3),rs.getString(5)));
+			}
+			movieDetails.setMovieGett(movieReturn);
+			getConnection().commit();
+			
+		} catch (SQLException e) {
+			System.out.println("SQLException in createUserRole()"+e);
+		} finally {
+			close(stmt, rs);
+			close(stmt1,rs);
+		}
+	}
+	public PreparedStatement getPreparedStatementgetSearchDetails(Connection connection, String sqlCmd, MovieDetails movieDetails) throws SQLException{
+		try {
+			String movie=movieDetails.getMoviename();
+			return connection.prepareStatement("select ca.castingname,cp.profession,ml.releasedate,ml.description,ml.image, ge.descrption "
+					+ "from Al237_imdb_movie_casting_mapprint_table as cmt, Al237_imdb_movieslist as ml,Al237_imdb_genre as ge ,"
+					+ " Al237_imdb_casting as ca,Al237_imdb_genere_movie_table as gmt, Al237_imdb_casting_profession as cp "
+					+ " where ml.moviename like '%"+movie+"%' and cmt.casting_id=ca.casting_id and ml.movie_id=cmt.movie_id and"
+							+ " ca.profession_id=cp.profession_id and ml.movie_id=gmt.movie_id and gmt.genre_id=ge.genre_id "
+							+ "union" + " select ca.castingname,cp.profession,tl.releasedate,tl.description,tl.image, ge.genre "
+									+ "from Al237_imdb_tvshows_casting_mapprint_table as tcmt, Al237_imdb_tvshowslist as tl, "
+									+ "Al237_imdb_tvshow_genre as ge , Al237_imdb_tvshows_casting as ca,Al237_imdb_genere_tvshow_table as gtt, "
+									+ "Al237_imdb_tvshows_casting_profession as cp where tl.tvshowname like '%"+movie+"%' and tcmt.casting_id=ca.casting_id"
+									+ " and  tl.tvshows_id=tcmt.tvshows_id and ca.profession_id=cp.profession_id and tl.tvshows_id=gtt.tvshows_id and"
+									+ " gtt.tvgenre_id=ge.tvgenre_id ");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
+	public void getSearchItemDetailComments(MovieComments movieComments){
+		
+	}
+
+	public void getSearchItemCommentsDao(MovieComments movieComments) {//throws DAOException{
+		//log.debugPrintCurrentMethodName();
+		PreparedStatement stmt = null;
+		
+		ResultSet rs = null;
+		ArrayList<ListedMovieComments> movieCommentReturn=new ArrayList<ListedMovieComments>();
+		
+	//	MovieReturnFileds movieretunFileds;
+		try {
+			String sqlCmd = "sql command";
+			stmt= getPreparedStatementSearchItemComments(getConnection(), sqlCmd, movieComments);
+			//stmt.setString(1, movieDetails.getMoviename());
+			rs= stmt.executeQuery();
+			while(rs.next())
+			{
+				//System.out.println("get string"+rs.getString(1));
+				movieCommentReturn.add(new ListedMovieComments(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getDate(5)));		
+			}
+			movieComments.setListedMovieComments(movieCommentReturn);
+			getConnection().commit();
+			
+		} catch (SQLException e) {
+			System.out.println("SQLException in createUserRole()"+e);
+		} finally {
+			close(stmt, rs);
+		}
+	}
+	public PreparedStatement getPreparedStatementSearchItemComments(Connection connection, String sqlCmd, MovieComments movieComments) throws SQLException{
+		try {
+			String movie= movieComments.getMoviename();
+		//	System.out.println(movie);
+			return connection.prepareStatement("select ud.firstname,ud.lastname,ra.rating,ra.comments,ra.rating_date "
+					+ "from Al237_imdb_Rating as ra, Al237_imdb_movieslist as ml, Al237_imdb_user_details as ud "
+					+ "where ra.movie_id=ml.movie_id and ra.userid=ud.userid and ml.moviename='"+movie+"'"
+					+ " union select ud.firstname,ud.lastname,ra.rating,ra.comments,ra.rating_date "
+					+ "from Al237_imdb_tvshow_Rating as ra, Al237_imdb_tvshowslist as tl, Al237_imdb_user_details as ud"
+					+ " where ra.tvshows_id=tl.tvshows_id and ra.userid=ud.userid and tl.tvshowname='"+movie+"'");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
+	
+	public void insertUserCommentsDao(UserCommnets userCommnets) {//throws DAOException{
+		//log.debugPrintCurrentMethodName();
+		PreparedStatement stmt = null;
+		PreparedStatement stmt1 = null,stmt11=null;
+		PreparedStatement stmt2 = null;
+		
+		ResultSet rs = null,rs1=null,rs2=null;
+		int userid=0;
+		int tvshowid=0;
+		//ArrayList<ListedMovieComments> movieCommentReturn=new ArrayList<ListedMovieComments>();
+		
+	//	MovieReturnFileds movieretunFileds;
+		try {
+			String sqlCmd = "sql command";
+			stmt= getPreparedStatementUserId(getConnection(), userCommnets);
+			
+			stmt1= getPreparedStatementMovieId(getConnection(), userCommnets); //movielist
+			
+			stmt2= getPreparedStatementTvShowId(getConnection(), userCommnets);// tvshowlist
+			//stmt.setString(1, movieDetails.getMoviename());
+			System.out.println("Gh");
+			rs= stmt.executeQuery();
+			rs1= stmt1.executeQuery();
+			rs2= stmt2.executeQuery();
+			
+			
+			if(rs.next())
+			{
+				 userid=rs.getInt(1);
+			}
+			
+			if(rs1.next())
+			{
+				int movieid=rs1.getInt(1);
+				if(userid!=0)
+				{
+					stmt11=getPreparedStatementUserCommentsInMovieRating(getConnection(), userCommnets, userid, movieid);
+					int count=stmt11.executeUpdate();
+					if(count>0)
+					{
+						userCommnets.setValidComment(true);
+					}
+				}
+				
+			}
+			if(rs2.next())
+			{
+				 tvshowid=rs2.getInt(1);
+				 if(tvshowid!=0)
+					{
+						stmt11=getPreparedStatementUserCommentsTvShowsrating(getConnection(), userCommnets, userid, tvshowid);
+						int count=stmt11.executeUpdate();
+						if(count>0)
+						{
+							userCommnets.setValidComment(true);
+						}
+					}
+			}
+			
+			/*while(rs.next())
+			{
+				//System.out.println("get string"+rs.getString(1));
+				movieCommentReturn.add(new ListedMovieComments(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getDate(5)));		
+			}
+			movieComments.setListedMovieComments(movieCommentReturn);*/
+			getConnection().commit();
+			
+		} catch (SQLException e) {
+			System.out.println("SQLException in createUserRole()"+e);
+		} finally {
+			close(stmt, rs);
+		}
+	}
+	public PreparedStatement getPreparedStatementUserId(Connection connection,UserCommnets userCommnets) throws SQLException{
+		try {
+			String movie= userCommnets.getUsername();
+		//	System.out.println(movie);
+			return connection.prepareStatement("select userid from Al237_imdb_user_details where email='"+movie+"'");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
+	public PreparedStatement getPreparedStatementMovieId(Connection connection,UserCommnets userCommnets) throws SQLException{
+		try {
+			String movie= userCommnets.getMovieortvshow();
+		//	System.out.println(movie);
+			return connection.prepareStatement("select movie_id from Al237_imdb_movieslist where moviename='"+movie+"'");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
+	public PreparedStatement getPreparedStatementTvShowId(Connection connection,UserCommnets userCommnets) throws SQLException{
+		try {
+			String movie= userCommnets.getMovieortvshow();
+		//	System.out.println(movie);
+			return connection.prepareStatement("select tvshows_id from Al237_imdb_tvshowslist where tvshowname='"+movie+"'");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
+
+	public PreparedStatement getPreparedStatementUserCommentsInMovieRating(Connection connection,UserCommnets userCommnets,int userid , int movieid) throws SQLException{
+		try {
+			double rating= userCommnets.getRating();
+			String comments=userCommnets.getTextareacomment();
+		//	System.out.println(movie);
+			return connection.prepareStatement("insert into Al237_imdb_Rating(userid,movie_id,rating,rating_date,comments) values("+userid+","+movieid+","+rating+",CURRENT_TIMESTAMP(),'"+comments+"')");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
+	public PreparedStatement getPreparedStatementUserCommentsTvShowsrating(Connection connection,UserCommnets userCommnets,int userid , int tvshowid) throws SQLException{
+		try {
+			double rating= userCommnets.getRating();
+			String comments=userCommnets.getTextareacomment();
+		//	System.out.println(movie);
+			return connection.prepareStatement("insert into Al237_imdb_tvshow_Rating(userid,tvshows_id,rating_date,rating,comments) values("+userid+","+tvshowid+",CURRENT_TIMESTAMP(),"+rating+",'"+comments+"')");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
 }

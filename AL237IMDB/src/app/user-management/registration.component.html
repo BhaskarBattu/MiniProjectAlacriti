@@ -1,0 +1,157 @@
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Signup Form</h1>
+<!--
+    <div class="container">
+        <label><b>Firstname</b></label>
+        <input type="text" placeholder="Enter firstname" name="firstname" required>
+        <label><b>Lastname</b></label>
+        <input type="text" placeholder="Enter lastname" name="lastname" required>
+
+        <label><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+
+        <label><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+        <label><b>Address</b></label>
+        <input type="text" placeholder="Enter adress" name="address" required>
+        <label><b>Mobilenumber</b></label>
+        <input type="text" placeholder="Enter mobile number:9999999999" name="mobileno" required>
+
+        <div class="clearfix">
+            <button type="button" class="cancelbtn">Cancel</button>
+            <button (click)="compo()" class="signupbtn">Sign Up</button>
+        </div>
+    </div>
+--><!--
+<form #userform="ngForm" (ngSubmit)="onSubmit(userform.value)" novalidate>
+    <div class="container">
+        <div class="form-group">
+            <label><b>Firstname</b></label>
+            <input type="text" class="form-control" ngModel  placeholder="Enter firstname" name="firstName"  required>
+        </div>
+        <div class="form-group">
+            <label><b>Lastname</b></label>
+            <input type="text" class="form-control" ngModel placeholder="Enter lastname" name="lastName" required>
+        </div>
+        <div class="form-group">
+            <label><b>Email</b></label>
+            <input type="text" class="form-control" ngModel placeholder="Enter Email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label><b>Password</b></label>
+            <input type="password" class="form-control" ngModel placeholder="Enter Password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label><b>Repeat Password</b></label>
+            <input type="password" class="form-control" ngModel  placeholder="Repeat Password" name="passwordRepeat" required>
+        </div>
+        <div class="form-group">
+            <label><b>Address</b></label>
+            <input type="text" class="form-control" ngModel placeholder="Enter adress" name="address" required>
+        </div>
+        <div class="form-group">
+            <label><b>Mobilenumber</b></label>
+            <input type="text" class="form-control" ngModel placeholder="Enter mobile number:9999999999" name="mobileno" required>
+        </div>
+
+        <div class="clearfix">
+            <button type="reset" class="cancelbtn">Reset</button>
+            <button type="submit" class="signupbtn">Sign Up</button>
+        </div>
+    </div>
+
+</form>
+-->
+
+<div class="container">
+    <form [formGroup]= "userForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label style="color: black">FirstName</label>
+            <input type="text" #refFirstName class="form-control" placeholder="Enter firstName" formControlName="firstName">
+            <div *ngIf="userForm.controls['firstName'].hasError('required')" class="alert alert-danger">
+                please enter a firstName
+            </div>
+            <div *ngIf="userForm.controls['firstName'].hasError('minlength')" class="alert alert-danger">
+                please enter a valid firstName
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="color: black">Lastname</label>
+            <input type="text" #refLastname class="form-control" placeholder="Enter Lastname" formControlName="lastName">
+            <div *ngIf="userForm.controls['lastName'].hasError('required')" class="alert alert-danger">
+                please enter a Lastname
+            </div>
+            <div *ngIf="userForm.controls['lastName'].hasError('minlength')" class="alert alert-danger">
+                please enter a valid Lastname
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="color: black">Email</label>
+            <input type="text" #refemail class="form-control" placeholder="Enter Email" formControlName="email">
+            <div *ngIf="userForm.controls['email'].hasError('required')" class="alert alert-danger">
+                please enter a email
+            </div>
+            <div *ngIf="userForm.controls['email'].hasError('minlength')" class="alert alert-danger">
+                please enter a valid email
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="color: black">Password</label>
+            <input type="password" #refpassword class="form-control" placeholder="Enter password" formControlName="password">
+            <div *ngIf="userForm.controls['password'].hasError('required')" class="alert alert-danger">
+                please enter a password
+            </div>
+            <div *ngIf="userForm.controls['password'].hasError('minlength')" class="alert alert-danger">
+                please enter a valid password
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="color: black">Repeat-Password</label>
+            <input type="password" #refPasswordRepeat class="form-control" placeholder="Enter Repeated password" formControlName="passwordRepeat">
+            <div *ngIf="userForm.controls['passwordRepeat'].hasError('required')" class="alert alert-danger">
+                please enter a Repeated Password
+            </div>
+            <div *ngIf="userForm.controls['passwordRepeat'].hasError('minlength')" class="alert alert-danger">
+                please enter a valid Repeated password
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="color: black">Address</label>
+            <input type="text" #refaddress class="form-control" placeholder="Enter Address" formControlName="address">
+            <div *ngIf="userForm.controls['address'].hasError('required')" class="alert alert-danger">
+                please enter a address
+            </div>
+            <div *ngIf="userForm.controls['address'].hasError('minlength')" class="alert alert-danger">
+                please enter a valid address
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="color: black">Mobile Number</label>
+            <input type="text" #refmobileno class="form-control" placeholder="Enter 9999999999" formControlName="mobileno">
+            <div *ngIf="userForm.controls['mobileno'].hasError('required')" class="alert alert-danger">
+                please enter a mobileno
+            </div>
+            <div *ngIf="userForm.controls['mobileno'].hasError('minlength')" class="alert alert-danger">
+                please enter a valid mobileno
+            </div>
+            <div *ngIf="userForm.controls['mobileno'].hasError('maxlength')" class="alert alert-danger">
+                please enter a valid mobileno
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <button type="reset" class="cancelbtn">Reset</button>
+            <button type="submit" [disabled]="!userForm.valid" class="signupbtn">Sign In</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

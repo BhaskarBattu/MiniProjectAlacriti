@@ -23,7 +23,7 @@ public class TopMovies {
 		this.listTopMovies = listTopMovies;
 	}
 	public TopMovies(TopMovies topMovies, ArrayList<ListTopMovies> listTopMovies) {
-		super();
+	//	super();
 		this.topMovies = topMovies;
 		this.listTopMovies = listTopMovies;
 	}

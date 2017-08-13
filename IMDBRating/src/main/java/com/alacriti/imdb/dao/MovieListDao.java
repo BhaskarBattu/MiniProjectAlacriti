@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.alacriti.imdb.model.vo.ListTopMovies;
+import com.alacriti.imdb.model.vo.ListedMovieComments;
+import com.alacriti.imdb.model.vo.MovieComments;
 import com.alacriti.imdb.model.vo.TopMovies;
 
 public class MovieListDao extends BaseDAO{
@@ -29,10 +31,10 @@ public class MovieListDao extends BaseDAO{
 			stmt= getPreparedStatementMovieDetails(getConnection(), sqlCmd, topMovies);
 			//stmt.setString(1, movieDetails.getMoviename());
 			rs= stmt.executeQuery();
-			//System.out.println("movie coming");
+		//	System.out.println("movie coming");
 			while(rs.next())
 			{
-				movieReturn.add(new  ListTopMovies(rs.getString(1),rs.getString(6),rs.getString(2),rs.getString(4),rs.getString(3),rs.getString(5)));		
+				movieReturn.add(new ListTopMovies(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getInt(5)));		
 			}
 			topMovies.setListTopMovies(movieReturn);
 			getConnection().commit();
@@ -44,12 +46,11 @@ public class MovieListDao extends BaseDAO{
 		}
 	}
 	public PreparedStatement getPreparedStatementMovieDetails(Connection connection, String sqlCmd, TopMovies tlopMovies) throws SQLException{
+
 		try {
-			return connection.prepareStatement("select ca.castingname,cp.profession,ml.releasedate,ml.description,ml.image, ge.descrption "
-					+ "from Al237_imdb_movie_casting_mapprint_table as cmt, Al237_imdb_movieslist as ml,Al237_imdb_genre as ge ,"
-					+ " Al237_imdb_casting as ca,Al237_imdb_genere_movie_table as gmt, Al237_imdb_casting_profession as cp "
-					+ " where ml.moviename like '%"+movie+"%' and cmt.casting_id=ca.casting_id and ml.movie_id=cmt.movie_id and"
-							+ " ca.profession_id=cp.profession_id and ml.movie_id=gmt.movie_id and gmt.genre_id=ge.genre_id");
+			return connection.prepareStatement("select ra.movie_id,ml.moviename,ml.image,Avg(ra.rating),count(ra.userid)"
+					+ " from Al237_imdb_Rating as ra, Al237_imdb_movieslist as ml "
+					+ "where ra.movie_id=ml.movie_id group by movie_id order by ra.rating desc");
 				
 		} catch (SQLException e) {
 			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
@@ -58,4 +59,49 @@ public class MovieListDao extends BaseDAO{
 			
 		}
 	}
+	public void movieCommentsDao(MovieComments movieComments) {//throws DAOException{
+		//log.debugPrintCurrentMethodName();
+		PreparedStatement stmt = null;
+		
+		ResultSet rs = null;
+		ArrayList<ListedMovieComments> movieCommentReturn=new ArrayList<ListedMovieComments>();
+		
+	//	MovieReturnFileds movieretunFileds;
+		try {
+			String sqlCmd = "sql command";
+			stmt= getPreparedStatementMovieComments(getConnection(), sqlCmd, movieComments);
+			//stmt.setString(1, movieDetails.getMoviename());
+			rs= stmt.executeQuery();
+			//System.out.println("movie coming");
+			while(rs.next())
+			{
+				System.out.println("get string"+rs.getString(1));
+				movieCommentReturn.add(new ListedMovieComments(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getDate(5)));		
+			}
+			movieComments.setListedMovieComments(movieCommentReturn);
+			getConnection().commit();
+			
+		} catch (SQLException e) {
+			System.out.println("SQLException in createUserRole()"+e);
+		} finally {
+			close(stmt, rs);
+		}
+	}
+	public PreparedStatement getPreparedStatementMovieComments(Connection connection, String sqlCmd, MovieComments movieComments) throws SQLException{
+		try {
+			String movie= movieComments.getMoviename();
+		//	System.out.println(movie);
+			return connection.prepareStatement("select ud.firstname,ud.lastname,ra.rating,ra.comments,ra.rating_date "
+					+ "from Al237_imdb_Rating as ra, Al237_imdb_movieslist as ml, Al237_imdb_user_details as ud"
+					+ " where ra.movie_id=ml.movie_id and ra.userid=ud.userid and ml.moviename='"+movie+"'"
+					+ "order by ra.rating desc");
+				
+		} catch (SQLException e) {
+			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			throw e;
+			
+		}
+	}
+	
 }

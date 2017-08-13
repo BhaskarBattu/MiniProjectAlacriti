@@ -1,42 +1,38 @@
-import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
+import { NgModule } from '@angular/core';
 
-import { AppComponent }  from './app.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {SearchComponent} from './searchmovie/search.component';
-import {RegistrationComponent} from './login/registration.component';
-import {SigninCmponent} from './login/signin.cmponent';
-import {AppRoutingModule} from './app-routing/app-routing.module';
-import {HttpModule} from '@angular/http';
-import {HeroService} from './hero/hero.service';
-import {SigninService} from './login/signin.service';
-import {RegistrationService} from './login/registration.service';
-import {UtilityService} from './utility.service';
-import {MovieService} from './dashboard/movies/movie.service';
-import {MoviedescriptionComponent} from './dashboard/movies/moviedescription/moviedescription.component';
-import {DashboardService} from './dashboard/dashboard.service';
-import {MovieDescrptionService} from './dashboard/movies/moviedescription/movieDescrption.service';
-
+import { AppComponent } from './app.component';
+import {UserManagementModule} from "./user-management/user-management.module";
+import {HttpModule} from "@angular/http";
+import {AppRoutingModule} from "./app-routing.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {DashboardManagementModule} from "./dashboard-management/dashboard-management.module";
+import {AppComponentService} from "./app.component.service";
+import {SearchModule} from "./search-mangement/search-module";
+import {LoginService} from "./login.service";
+import {AuthcheckingService} from "./authchecking.service";
+import {RatingComponent} from "./Rating/rating.component";
+import {RatingService} from "./Rating/rating.service";
+import {CommonModule} from "@angular/common";
 
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    RatingComponent,
+
+  ],
   imports: [
     BrowserModule,
     FormsModule,
-      AppRoutingModule,
-      HttpModule// <-- import the FormsModule before binding with [(ngModel)]
+    AppRoutingModule,
+    HttpModule,
+    UserManagementModule,
+    DashboardManagementModule,
+    SearchModule,
+     CommonModule, ReactiveFormsModule
   ],
-  declarations: [
-    AppComponent,
-      DashboardComponent,
-      SearchComponent,
-      RegistrationComponent,
-      SigninCmponent,
-      MoviedescriptionComponent
-
-  ],
-    providers: [ HeroService, MovieDescrptionService , DashboardService, SigninService, RegistrationService, UtilityService, MovieService],
-  bootstrap: [ AppComponent ]
+  providers: [AppComponentService, LoginService, AuthcheckingService, RatingService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

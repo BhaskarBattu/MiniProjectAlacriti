@@ -1,122 +1,46 @@
-<!--<table class="tblcolor" border="5">
-    <tr>
-        <td id="image">
-        <img src="assests/imdb.jpg" width="100%" alt="Smiley face">
+
+<div  style="background-color: darkgrey;padding-top: 2px;height: 91px" class="ddsmoothmenu">
+  <ul>
+    <li><img  id="image" src="assets/imdb.jpg" width="100%" alt="Smiley face"></li>
+    <li><select class="selection" style="color: red">
+      <option value="all" >All</option>
+      <option value="movies">Movies</option>
+      <option value="tvshows">Tvshows</option>
+      <option value="acters">Celebrities</option>
+    </select>
+    </li>
+    <li>
+      <input type="text" #searchBox id="textboxid" (keyup)="search(searchBox.value)" placeholder="Search" />
+      <div style="height: 23px;">
+        <div  *ngFor="let searchitems of searchTh" routerLinkActive="active" style="text-decoration: underline;" (click)="gotoDetail(searchitems.searchitem)" >
+          <div style="color: black;background-color: white;text-align: left;">{{searchitems.searchitem}}</div>
+          <!--<div *ngIf="search!=null; else elseBlock" style="color: black;background-color: white;text-align: left;">{{search.searchitem}}</div>-->
+          <!--<ng-template #elseBlock  style="color: black;background-color: white;text-align: left;">No results</ng-template>-->
+        </div>
+        <div *ngIf="searchBox.value && !noresult && searchTh && !searchTh.length " style="color: black;background-color: white;text-align: left;">No results</div>
+      </div>
+    </li>
+    <li><a *ngIf="!this.isloginers" routerLink="/signin" routerLinkActive="active">Signin</a></li>
+    <li><a *ngIf="this.isloginers" routerLink="/signin" routerLinkActive="active"><small>{{this.username}}</small></a></li>
+    <li><a *ngIf="!this.isloginers" routerLink="/registration" routerLinkActive="active">Registration</a></li>
+
+  </ul>
+  <br style="clear: left" />
+</div>
+<div  style="background-color: darkgrey;padding-top: 2px" class="dashboardmenu">
+  <ul>
+    <li><a style="padding: 14px" routerLink="/movies" routerLinkActive="active">Movies</a></li>
+    <li><a style="padding: 14px" routerLink="/tvshows" routerLinkActive="active">TvShows</a></li>
+    <li><a style="padding: 14px" routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+    <li><a *ngIf="!this.isloginers"style="padding: 14px" routerLink="/registration" routerLinkActive="active">Registration</a></li>
+    <li><a *ngIf="this.isloginers" style="padding: 14px" routerLink="/logout" routerLinkActive="active"><small>Logout</small></a></li>
+  </ul>
+  <br style="clear: left" />
+</div>
+<table class="tblcolor">
+  <tr>
+    <td>
+      <router-outlet></router-outlet>
     </td>
-
-        <td>
-            <my-search></my-search>
-        </td>
-        <td align="center" width="1%">
-            <select class="selection">
-                <option value="all">All</option>
-                <option value="movies">Movies</option>
-                <option value="tvshows">Tvshows</option>
-                <option value="acters">Celebraties</option>
-            </select>
-        </td><td align="left" width="16%">
-            <button id="" class="alert">search</button>
-        </td>
-        <td align="right">
-            <my-signin></my-signin>
-
-            <my-registration></my-registration>
-        </td>
-
-    </tr>
+  </tr>
 </table>
-
-<table class="tblcolor">
-    <tr>
-        <td>
-            <my-dashboard></my-dashboard>
-        </td>
-    </tr>
-</table>-->
-<table class="tblcolor">
-    <tr>
-        <td id="image">
-            <img src="assests/imdb.jpg" width="100%" alt="Smiley face">
-        </td>
-        <td style="padding-left:4%;margin:0%;border-collapse: collapse" align="center" width="1%">
-            <div id="link" style="clear:both;">
-            <select class="selection" style="color: red">
-                <option value="all" >All</option>
-                <option value="movies">Movies</option>
-                <option value="tvshows">Tvshows</option>
-                <option value="acters">Celebraties</option>
-            </select>
-            </div>
-
-        </td>
-        <td>
-            <div id="link" style="clear:both;">
-                <input type="text" id="textboxid" placeholder="Search" />
-            </div>
-        </td>
-       <!-- <td>
-            <div id="link" style="clear:both;">
-                <div  class="ddsmoothmenu">
-                    <ul>
-                        <li><a routerLink="/Search" routerLinkActive="active">Search</a></li>
-
-                    </ul>
-                    <br style="clear: left" />
-                </div>
-            </div>
-        </td>-->
-         <td align="right">
-            <div id="link" style="clear:both">
-                <div  class="ddsmoothmenu">
-                    <ul>
-                        <li *ngIf=isUserLoggedIn><a routerLink="/Signin"  (getUserRes)= " useRegname=$event" routerLinkActive="active">Welcome, {{useRegname}}</a></li>
-                        <li *ngIf=!isUserLoggedIn><a routerLink="/Signin" (getUserRes)= "useRegname=$event"  routerLinkActive="active">Signin</a></li>
-
-                        <li><a routerLink="/Login" routerLinkActive="active">Registration</a></li>
-
-                    </ul>
-                    <br style="clear: left" />
-                </div>
-            </div>
-
-        </td>
-    </tr>
-</table>
-<table class="tblcolor">
-    <tr><td >
-
-
-    </td>
-
-        <td>
-
-                <div id="link" style="clear:both;padding-left: 20%">
-                    <div  class="ddsmoothmenu">
-                        <ul>
-                            <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-                            <li><a routerLink="/Login" routerLinkActive="active">Login</a></li>
-                            <li><a routerLink="/tvshows" routerLinkActive="active">Tvshows</a></li>
-                            <li><a routerLink="/casting" routerLinkActive="active">Celebraties</a></li>
-
-                        </ul>
-                        <br style="clear: left" />
-                    </div>
-                </div>
-
-
-        </td>
-    </tr>
-</table>
-<table class="tblcolor">
-    <tr>
-        <td>
-        <router-outlet></router-outlet>
-    </td>
-    </tr>
-
-
-</table>
-
-
-
-

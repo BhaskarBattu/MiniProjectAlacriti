@@ -3,8 +3,11 @@ package com.alacriti.imdb.delegate;
 import java.sql.Connection;
 
 import com.alacriti.imdb.bo.UserRegisterBo;
+import com.alacriti.imdb.model.vo.MovieComments;
 import com.alacriti.imdb.model.vo.MovieDetails;
+import com.alacriti.imdb.model.vo.Search;
 import com.alacriti.imdb.model.vo.TopRatedMovieTvshows;
+import com.alacriti.imdb.model.vo.UserCommnets;
 import com.alacriti.imdb.model.vo.UserRegistration;
 
 public class UserDelegate extends BaseDelegate{
@@ -79,4 +82,73 @@ public class UserDelegate extends BaseDelegate{
 			endDBTransaction(connection, rollBack);
 		}
 	}
+	public void displaSearchDetailsDelegate(String searchTerm, Search searcTerm){
+		boolean rollBack = false;
+		Connection connection = null;
+		try {
+			connection = startDBTransaction();
+			setConnection(connection);
+			//System.out.println("Database connected movie bhaskar");
+			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
+			userRegistBo.displaySerchDetaillsBO(searchTerm, searcTerm);
+		} catch (Exception e) {
+			//log.logError("Exception in getMessage " + e.getMessage(), e);
+			System.out.println("Exception in getConnection " + e.getMessage());
+			rollBack = true;
+		} finally {
+			endDBTransaction(connection, rollBack);
+		}
+	}
+	public void getSearchDetailsDelegate(MovieDetails movieDetails){
+		boolean rollBack = false;
+		Connection connection = null;
+		try {
+			connection = startDBTransaction();
+			setConnection(connection);
+			//System.out.println("Database connected movie bhaskar");
+			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
+			userRegistBo.getSearchDetaillsBO(movieDetails);
+		} catch (Exception e) {
+			//log.logError("Exception in getMessage " + e.getMessage(), e);
+			System.out.println("Exception in getConnection " + e.getMessage());
+			rollBack = true;
+		} finally {
+			endDBTransaction(connection, rollBack);
+		}
+	}
+	public void getSearchItemCommentsDelegate(MovieComments movieComments){
+		boolean rollBack = false;
+		Connection connection = null;
+		try {
+			connection = startDBTransaction();
+			setConnection(connection);
+			//System.out.println("Database connected movie bhaskar");
+			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
+			userRegistBo.getSearchItemCommentsBO(movieComments);
+		} catch (Exception e) {
+			//log.logError("Exception in getMessage " + e.getMessage(), e);
+			System.out.println("Exception in getConnection " + e.getMessage());
+			rollBack = true;
+		} finally {
+			endDBTransaction(connection, rollBack);
+		}
+	}
+	public void insertUserCommentsDelegate(UserCommnets userCommnets){
+		boolean rollBack = false;
+		Connection connection = null;
+		try {
+			connection = startDBTransaction();
+			setConnection(connection);
+			//System.out.println("Database connected movie bhaskar");
+			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
+			userRegistBo.insertUserCommentsBO(userCommnets);
+		} catch (Exception e) {
+			//log.logError("Exception in getMessage " + e.getMessage(), e);
+			System.out.println("Exception in getConnection " + e.getMessage());
+			rollBack = true;
+		} finally {
+			endDBTransaction(connection, rollBack);
+		}
+	}
+	
 }
