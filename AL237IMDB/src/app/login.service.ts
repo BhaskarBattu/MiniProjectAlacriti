@@ -11,7 +11,7 @@ export class LoginService {
 
   checkForSession() {
 
-    return this.http.get('http://localhost:8080/IMDBRating-0.0.1-SNAPSHOT/user/checkSession',{withCredentials: true})
+    return this.http.get('http://192.168.35.61:8080/IMDBRating-0.0.1-SNAPSHOT/user/checkSession',{withCredentials: true})
       .map(response => this.returnType = (response.json()));
   }
 

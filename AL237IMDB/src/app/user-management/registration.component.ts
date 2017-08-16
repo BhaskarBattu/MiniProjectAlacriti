@@ -27,8 +27,29 @@ export class RegistrationComponent implements  OnInit{
             address: ['', [Validators.required, Validators.minLength(4)]],
             mobileno: ['', [Validators.pattern('^[ 7-9][0-9]{9}$'), Validators.required,
                         Validators.minLength(10), Validators.maxLength(10)]]
-        });
+        }//,{validator: this.checkIfMatchingPasswords('password', 'passwordRepeat')}
+
+        );
     }
+
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      let passwordInput = group.controls[passwordKey],
+        passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        return passwordConfirmationInput.setErrors({notEquivalent: true})
+      }
+      else {
+        return passwordConfirmationInput.setErrors(null);
+      }
+    }
+  }
+
+
+
+
+
+
     onSubmit() {
         console.log(this.userForm.value);
         this.regService.registration(this.userForm.value).subscribe((response) => {
@@ -38,8 +59,11 @@ export class RegistrationComponent implements  OnInit{
                 this.responseRegistration = response.json();
                 console.log(this.responseRegistration);
                 if (this.responseRegistration === true) {
+                  window.localStorage.setItem('username',this.userForm.value.email)
+                  window.localStorage.setItem('valid','true');
                   this.signinService.changes.next(true);
                   this.signinService.username.next(this.userForm.value.email);
+                  this.signinService.referehbrowser.next(true);
                     this.router.navigate(['/']);
                 } else {
                     alert('username is already exists plese log in');

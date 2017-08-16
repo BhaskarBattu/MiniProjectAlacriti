@@ -10,8 +10,8 @@ import 'rxjs/add/operator/toPromise';
 export class DashboardService {
     private tvShowList: TvShows[];
    private movieList: Movie[];
-    private movieUrl= 'http://localhost:8080/IMDBRating-0.0.1-SNAPSHOT/movies/onDashboardDispaly';
-    private tvShowUrl= 'http://localhost:8080/IMDBRating-0.0.1-SNAPSHOT/tvshows/onDashboardDispaly';
+    private movieUrl= 'http://192.168.35.61:8080/IMDBRating-0.0.1-SNAPSHOT/movies/onDashboardDispaly';
+    private tvShowUrl= 'http://192.168.35.61:8080/IMDBRating-0.0.1-SNAPSHOT/tvshows/onDashboardDispaly';
     constructor (private http: Http) {}
 
   getMoviesWithObservable(): Observable<Movie[]> {

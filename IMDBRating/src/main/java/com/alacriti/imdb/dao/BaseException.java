@@ -6,16 +6,17 @@ import java.io.Writer;
 
 import com.alacriti.imdb.constraints.Constants;
 
-public class BaseException {
+public class BaseException extends Exception{
 	protected Throwable m_innerException;
 	protected String m_message = Constants.EMPTY_STRING;
-	//protected String m_errorCode = ErrorConstants.ERR_GENERIC;
-
-	// TODO: USAGE: To Override in the child exceptions
-
+	
 	protected BaseException() {
 	}
 
+	public BaseException(String msg)
+	{
+		super(msg);
+	}
 	public BaseException(String msg, Throwable th, String errorCode) {
 		//super(StringUtil.noNullTrim(msg), th);
 		//setErrorCode(errorCode);

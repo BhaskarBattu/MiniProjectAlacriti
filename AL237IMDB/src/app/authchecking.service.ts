@@ -10,21 +10,28 @@ export class AuthcheckingService implements CanActivate {
   private errorMsg;
   private flag;
   constructor(private loginService: LoginService, private route: Router) {}
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    this.loginService.checkForSession()
-      .subscribe(data => this.flag = data,
-        dataError => this.errorMsg = dataError);
+    return new Promise<boolean>((resolve, reject) =>this.loginService.checkForSession()
+      .subscribe(data => {
+        this.flag = data;
+        if (this.flag === true)
+        {
 
-    if (this.flag === true)
-    {
-      console.log(this.flag);
-    }
-
-    else if (this.flag === false) {
-      console.log('this is from authguard : ' + this.flag);
-      this.route.navigate(['/signin']);
-    }
-    return this.flag;
+        }
+        else if (this.flag === false) {
+          alert('please login then only you can give rating');
+          this.route.navigate(['/signin']);
+        }
+        resolve(true)
+      }
+      ,
+        dataError => {
+          this.errorMsg = dataError;
+            resolve(false)
+        }
+      )
+    )
   }
 }

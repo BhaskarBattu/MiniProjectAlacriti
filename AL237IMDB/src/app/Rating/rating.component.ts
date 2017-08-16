@@ -36,19 +36,18 @@ export class RatingComponent implements OnInit{
       rating: ['', [Validators.required]]
      // firstName: ['', [Validators.required]]
     });
-    this.signinService.username.subscribe(name => this.username = name);
+    //this.signinService.username.subscribe(name => this.username = name);
+    this.username=window.localStorage.getItem('username');
 
   }
   onSubmit() {
-    console.log(this.commentForm.value.rating);
-      console.log(this.username);
       if(this.username!=null) {
         this.ratingServie.postCommeents(this.commentForm.value.textareacomments, this.commentForm.value.rating, this.username, this.parseGiveRatingName)
           .subscribe((response) => {
             if (response.ok === true) {
               this.commentResponse = response.json();
               if (this.commentResponse !== true) {
-                alert('comments are not inserted please try again');
+                alert('comments are not inserted please try again or login');
                 this.router.navigate(['/dashboard']);
               } else {
                 alert('Your comments are added successfully');
@@ -57,5 +56,8 @@ export class RatingComponent implements OnInit{
             }
           });
       }
+  }
+  goBack(): void {
+    this.router.navigate(['/dashboard']);
   }
 }

@@ -12,7 +12,7 @@ export class AppComponentService {
   private searchTh: AllSearch[];
   search(term: string): Observable<AllSearch[]> {
     return this.http
-      .get(`http://localhost:8080/IMDBRating-0.0.1-SNAPSHOT/user/searchTerm/?name=${term}`)
+      .get(`http://192.168.35.61:8080/IMDBRating-0.0.1-SNAPSHOT/user/searchTerm/?name=${term}`)
       .map(response =>this.searchTh = response.json());
   }
 }

@@ -4,6 +4,7 @@ import {SigninService} from './signin.service';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
+
 @Component({
     selector: 'app-signing',
     templateUrl: './signin.component.html',
@@ -37,7 +38,10 @@ export class SigninCmponent implements OnInit
                     this.router.navigate(['/signin']);
                 } else {
                    this.getUserRes.emit(this.userForm.value.email);
-                   this.signinService.changes.next(true);
+                   window.localStorage.setItem('username',this.userForm.value.email)
+                  window.localStorage.setItem('valid','true');
+                  this.signinService.changes.next(true);
+                  this.signinService.referehbrowser.next(true);
                    this.signinService.username.next(this.userForm.value.email);
                    //console.log(this.userForm.value.email);
                    this.router.navigate(['/']);

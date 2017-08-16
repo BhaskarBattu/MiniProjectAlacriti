@@ -14,11 +14,9 @@ public class MovieDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			MovieListBo movieListBo= new MovieListBo(getConnection());
 			movieListBo.movieListDetaillsBO(topMovies);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -32,11 +30,9 @@ public class MovieDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			MovieListBo movieListBo= new MovieListBo(getConnection());
 			movieListBo.movieCommentsBO(movieComments);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {

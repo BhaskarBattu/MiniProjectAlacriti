@@ -11,13 +11,16 @@ import {TvshowdescriptionComponent} from "./tvshowsdescription/tvshowdescription
 import {TvshowDescrptionService} from "./tvshowsdescription/tvshowDescrption.service";
 import {MoviesComponent} from "./moviedescription/movies.component";
 import {TvshowsComponent} from "./tvshowsdescription/tvshows.component";
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 @NgModule({
   imports : [FormsModule,
              CommonModule,
               AppRoutingModule,
-              ReactiveFormsModule],
+                ReactiveFormsModule,
+                NgxPaginationModule
+      ],
   declarations : [DashboardComponent,
                   MoviedescriptionComponent,
                   TvshowdescriptionComponent,

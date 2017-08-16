@@ -18,11 +18,9 @@ public class UserDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected bhaskar");
 			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
 			userRegistBo.createUserRegister(usrReg);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -36,11 +34,9 @@ public class UserDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected bhaskar");
 			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
 			userRegistBo.checkUserLoginBO(usrReg);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -54,11 +50,9 @@ public class UserDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected bhaskar");
 			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
 			userRegistBo.checkConnectioninBO(topRatedMovieTV);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -71,11 +65,9 @@ public class UserDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
 			userRegistBo.displayMovieDetaillsBO(movieDetails);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -88,11 +80,9 @@ public class UserDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
 			userRegistBo.displaySerchDetaillsBO(searchTerm, searcTerm);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -105,11 +95,9 @@ public class UserDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
 			userRegistBo.getSearchDetaillsBO(movieDetails);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -122,11 +110,9 @@ public class UserDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
 			userRegistBo.getSearchItemCommentsBO(movieComments);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -139,11 +125,9 @@ public class UserDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			UserRegisterBo userRegistBo= new UserRegisterBo(getConnection());
 			userRegistBo.insertUserCommentsBO(userCommnets);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {

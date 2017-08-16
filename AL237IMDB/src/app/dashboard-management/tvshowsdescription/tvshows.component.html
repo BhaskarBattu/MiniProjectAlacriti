@@ -1,5 +1,5 @@
 <h2>Top Rated Tvshows</h2>
-<table ><tr><td>
+<table ><tr><td style="padding: 19px">
   <div class="container">
     <div class="grid grid-pad">
       <a *ngFor="let tvShowloop of tvShowsList" (click)="onClickTvShow(tvShowloop.tvShowsID, tvShowloop.tvShowName,tvShowloop.tvshowImagePath, tvShowloop.avgRating, tvShowloop.memberscount)"   routerLinkActive="active" class="col-1-4">

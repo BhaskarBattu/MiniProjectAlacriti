@@ -80,7 +80,7 @@
                 please enter a firstName
             </div>
             <div *ngIf="userForm.controls['firstName'].hasError('minlength')" class="alert alert-danger">
-                please enter a valid firstName
+                please enter firstName atleast 4 chars
             </div>
         </div>
         <div class="form-group">
@@ -90,7 +90,7 @@
                 please enter a Lastname
             </div>
             <div *ngIf="userForm.controls['lastName'].hasError('minlength')" class="alert alert-danger">
-                please enter a valid Lastname
+                please enter  Lastname atleast 4 chars
             </div>
         </div>
         <div class="form-group">
@@ -110,18 +110,18 @@
                 please enter a password
             </div>
             <div *ngIf="userForm.controls['password'].hasError('minlength')" class="alert alert-danger">
-                please enter a valid password
+                please enter password atleast 8 characters
             </div>
         </div>
         <div class="form-group">
             <label style="color: black">Repeat-Password</label>
             <input type="password" #refPasswordRepeat class="form-control" placeholder="Enter Repeated password" formControlName="passwordRepeat">
             <div *ngIf="userForm.controls['passwordRepeat'].hasError('required')" class="alert alert-danger">
-                please enter a Repeated Password
+                please enter a Conformation Password
             </div>
-            <div *ngIf="userForm.controls['passwordRepeat'].hasError('minlength')" class="alert alert-danger">
-                please enter a valid Repeated password
-            </div>
+          <div *ngIf="userForm.controls['passwordRepeat'].value!==userForm.controls['password'].value" class="alert alert-danger">
+            please enter a conformation password
+          </div>
         </div>
         <div class="form-group">
             <label style="color: black">Address</label>

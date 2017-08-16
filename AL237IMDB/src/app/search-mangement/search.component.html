@@ -9,8 +9,8 @@
 <table  align="center">
   <tr>
     <td colspan="4">
-      <h1>Movies Bonanja</h1>
-      <h2>Hello, You are watching movie {{this.parseSearch}}</h2>
+      <h1> Offers Bonanja</h1>
+      <h2>Hello, You are watching  {{this.parseSearch}}</h2>
     </td>
   </tr>
   <tr>
@@ -68,7 +68,7 @@
               <div><img src="assets/star_2.png" width="40%" height="20%"></div>
             </div>
             <div *ngIf="1<movieloop.avgRating && 1.5>=movieloop.avgRating ">
-              <div><img src="assets/star_1.jpg" width="40%" height="20%"></div>
+              <div><img src="assets/stat_1.jpg" width="40%" height="20%"></div>
             </div>
             <span style="padding-left: 5%; color: firebrick">The average Rating is : </span><span style="font-size: 100%;padding-right: 15%;color: black">  {{movieloop.avgRating}}</span>
           </div>
@@ -97,7 +97,7 @@
               <div><img src="assets/star_2.png" width="40%" height="20%"></div>
             </div>
             <div *ngIf="1<tvshowloop.avgRating && 1.5>=tvshowloop.avgRating ">
-              <div><img src="assets/star_1.jpg" width="40%" height="20%"></div>
+              <div><img src="assets/stat_1.jpg" width="40%" height="20%"></div>
             </div>
             <span style="padding-left: 5%; color: firebrick">The average Rating is : </span><span style="font-size: 100%;padding-right: 15%;color: black">  {{tvshowloop.avgRating}}</span>
           </div>
@@ -110,7 +110,7 @@
 <table  width="100%" style="padding-top: 10%">
   <tr>
     <td>
-      <h2 style="color: #0b5849"> Scroll Down For Movie Comments</h2>
+      <h2 style="color: #0b5849"> Scroll Down For Comments</h2>
     </td>
     <td>
       <button (click)="goRating(this.parsetvshowname, this.prsetvshowimagepath)">Want To Give Rating</button>
@@ -120,7 +120,7 @@
 
 <!--Movie Comments-->
 
-<div *ngFor="let comment of searchCommentResponsePrint">
+<div *ngFor="let comment of searchCommentResponsePrint | paginate:{ itemsPerPage: 3, currentPage: p }">
   <table width="100%"  style="padding-top: 10%;">
     <tr>
       <td>
@@ -157,7 +157,7 @@
             <div><img src="assets/star_2.png" width="40%" height="20%"></div>
           </div>
           <div *ngIf="1<comment.rating && 1.5>=comment.rating">
-            <div><img src="assets/star_1.jpg" width="40%" height="20%"></div>
+            <div><img src="assets/stat_1.jpg" width="40%" height="20%"></div>
           </div>
 
         </div>
@@ -178,6 +178,7 @@
     </tr>
   </table>
 </div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
 <button (click)="goBack()">Back</button>
 </body>
 </html>

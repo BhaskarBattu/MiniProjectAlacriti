@@ -38,7 +38,7 @@ public class UserResources {
 		HttpSession session = request.getSession(false);
 			if(session!=null)
 					session.invalidate();
-		System.out.println("session in checkSession :"+session);
+			//System.out.print(sessionUtility.checkForSession(session)+"gg");
 		return sessionUtility.checkForSession(session);
 	}
 	
@@ -49,7 +49,7 @@ public class UserResources {
 	{
 		SessionUtility sessionUtility=new SessionUtility();
 		HttpSession session= request.getSession(false);
-		System.out.println("session in checkSession :"+session);
+		//System.out.println("session in checkSession :"+session);
 		return sessionUtility.checkForSession(session);
 	}
 	
@@ -57,10 +57,14 @@ public class UserResources {
 	@Path("/addUserRegistration")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean adduserRegistration(UserRegistration usrReg){
+	public boolean adduserRegistration(UserRegistration usrReg, @Context HttpServletRequest request){
 		//System.out.println("userRegistrationVO.RoleName********"+usrReg.getEmail());
 		UserDelegate usrDelegate=new UserDelegate();
 		usrDelegate.createUserAccount(usrReg);
+		if(usrReg.isRegCreated())
+		{
+			HttpSession session= request.getSession();		
+		}
 		return usrReg.isRegCreated();
 	}
 	
@@ -74,7 +78,6 @@ public class UserResources {
 		if(usrLoginCheck.isRegCreated())
 		{
 			HttpSession session= request.getSession();
-			System.out.println("=====>>>>"+ session.getId());
 		}
 		return usrLoginCheck.isRegCreated();
 	}
@@ -129,8 +132,6 @@ public class UserResources {
 	public ArrayList<ListedMovieComments> getSearchItemComments(MovieComments movieComments){
 		UserDelegate usrDelegate=new UserDelegate();
 		usrDelegate.getSearchItemCommentsDelegate(movieComments);
-		//movDelegate.movieDetailsDelegate(topMovies);
-		//return movieDetails.getMovieFields();
 		return movieComments.getListedMovieComments();
 	}
 	

@@ -6,18 +6,18 @@ export class TvshowDescrptionService {
     constructor(private http: Http) { }
     public getTVshowDetails(tvshowname: any)
     {
-        event.preventDefault();
+        //event.preventDefault();
         let tvshowdata = {
             'tvshowname': tvshowname
         };
-        return this.http.post('http://localhost:8080/IMDBRating-0.0.1-SNAPSHOT/tvshows/tvshowDetails', tvshowdata);
+        return this.http.post('http://192.168.35.61:8080/IMDBRating-0.0.1-SNAPSHOT/tvshows/tvshowDetails', tvshowdata);
     }
  public getTVshowComments (tvshowName: any)
    {
-       event.preventDefault();
+       //event.preventDefault();
        let tvshowComments = {
            'tvshowname': tvshowName
        };
-       return this.http.post('http://localhost:8080/IMDBRating-0.0.1-SNAPSHOT/tvshows/tvShowComments', tvshowComments);
+       return this.http.post('http://192.168.35.61:8080/IMDBRating-0.0.1-SNAPSHOT/tvshows/tvShowComments', tvshowComments);
    }
 }

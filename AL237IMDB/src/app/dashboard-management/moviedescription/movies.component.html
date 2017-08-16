@@ -1,7 +1,7 @@
 <h2>Top Rated Movies</h2>
 <table>
   <tr>
-    <td>
+    <td style="padding: 19px">
       <div class="container">
           <div class="grid grid-pad">
             <a *ngFor="let movieloop of moviesTotalList" (click)="onClickMovie(movieloop.movieId, movieloop.movieName, movieloop.imagePath, movieloop.avgRating, movieloop.count)"  routerLinkActive="active" class="col-1-4">

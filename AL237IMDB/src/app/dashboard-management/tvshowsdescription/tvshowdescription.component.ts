@@ -37,7 +37,7 @@ export  class TvshowdescriptionComponent implements OnInit {
         this.tvshowDescService.getTVshowDetails(this.parsetvshowname)
             .subscribe((tvShowResponse) => {
                 this.tvShowClickedResponse = tvShowResponse.json();
-                console.log(this.tvShowClickedResponse);
+                
             });
         //for TVSHOW comments
        this.tvshowDescService.getTVshowComments(this.parsetvshowname)

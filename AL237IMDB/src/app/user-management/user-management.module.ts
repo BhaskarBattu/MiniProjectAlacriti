@@ -8,12 +8,14 @@ import {SigninService} from "./signin.service";
 import {AppRoutingModule} from '../app-routing.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LogoutComponent} from "./logout.component";
+import {LogoutService} from "./logout.service";
+
 
 
 @NgModule({
     imports : [FormsModule, CommonModule, AppRoutingModule, ReactiveFormsModule],
-    declarations : [RegistrationComponent, SigninCmponent, LogoutComponent],
-    providers : [RegistrationService, SigninService],
+    declarations : [RegistrationComponent,SigninCmponent, LogoutComponent],
+    providers : [RegistrationService, SigninService, LogoutService],
     exports : []
 })
 

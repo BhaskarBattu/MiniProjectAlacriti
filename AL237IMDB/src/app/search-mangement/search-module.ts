@@ -5,10 +5,11 @@ import {AppRoutingModule} from '../app-routing.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SearchComponent} from "./search.component";
 import {SearchService} from "./search.service";
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 @NgModule({
-  imports : [FormsModule, CommonModule, AppRoutingModule, ReactiveFormsModule],
+  imports : [FormsModule, CommonModule, AppRoutingModule, ReactiveFormsModule, NgxPaginationModule],
   declarations : [SearchComponent],
   providers : [ SearchService ],
   exports : []

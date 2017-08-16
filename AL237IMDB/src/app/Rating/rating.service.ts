@@ -11,7 +11,7 @@ export class RatingService {
     const headers = new Headers();
     headers.append('Content-Type',
       'application/json');
-    return this.http.get('http://localhost:8080/IMDBRating-0.0.1-SNAPSHOT/user/invalidateSession',{ headers: headers,withCredentials:true});
+    return this.http.get('http://192.168.35.61:8080/IMDBRating-0.0.1-SNAPSHOT/user/invalidateSession',{ headers: headers,withCredentials:true});
   }
 
   public postCommeents(textareacomments: any,rating: any, username:any, moivieOrTvShow:any){
@@ -24,7 +24,7 @@ export class RatingService {
     const headers = new Headers();
     headers.append('Content-Type',
       'application/json');
-    return this.http.post('http://localhost:8080/IMDBRating-0.0.1-SNAPSHOT/user/insertUserComments', postcomments
+    return this.http.post('http://192.168.35.61:8080/IMDBRating-0.0.1-SNAPSHOT/user/insertUserComments', postcomments
       ,{ headers: headers,withCredentials:true});
   }
 }

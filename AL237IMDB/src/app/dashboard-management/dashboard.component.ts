@@ -22,11 +22,11 @@ export class DashboardComponent implements OnInit {
 
       this.dashBoardServie.getMoviesWithObservable()
         .subscribe(data => {
-          this.moviesList = data.slice(0,4)}
+          this.moviesList = data}
         );
      this.dashBoardServie.getTvShowsWithObservable()
         .subscribe(tvshowsdata => {
-          this.tvShowsList = tvshowsdata.slice(0,4)
+          this.tvShowsList = tvshowsdata
         });
 
     }

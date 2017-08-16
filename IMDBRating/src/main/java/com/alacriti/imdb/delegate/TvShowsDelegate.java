@@ -15,11 +15,9 @@ public class TvShowsDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			TvShowsBo tvShowtBo= new TvShowsBo(getConnection());
 			tvShowtBo.tvShowDetaillsBO(topTvShows);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -33,11 +31,9 @@ public class TvShowsDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			TvShowsBo tvShowtBo= new TvShowsBo(getConnection());
 			tvShowtBo.tvShowClickedDetaillsBO(tvShowDetails);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {
@@ -52,11 +48,9 @@ public class TvShowsDelegate extends BaseDelegate{
 		try {
 			connection = startDBTransaction();
 			setConnection(connection);
-			//System.out.println("Database connected movie bhaskar");
 			TvShowsBo tvShowtBo= new TvShowsBo(getConnection());
 			tvShowtBo.tvShowCommentsBO(tvShowComments);
 		} catch (Exception e) {
-			//log.logError("Exception in getMessage " + e.getMessage(), e);
 			System.out.println("Exception in getConnection " + e.getMessage());
 			rollBack = true;
 		} finally {

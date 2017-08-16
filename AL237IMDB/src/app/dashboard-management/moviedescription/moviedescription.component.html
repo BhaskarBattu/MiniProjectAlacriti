@@ -23,7 +23,7 @@
        <h2> Movie Name:{{this.parseMovie}}</h2>
     </td>-->
     <td width="80%" height="100%" align="cneter">
-            <div *ngFor="let movies of movieResponsePrint">
+            <div *ngFor="let movies of movieResponsePrint ">
                 <div class="module movie">
                     <div> <span style="color: rebeccapurple;padding-right: 5%;padding-left: 15%;font-size: 120%">{{movies.actorProfession}} : </span> <span style="color: darkred;font-size: 150%">{{movies.actors}}</span><br></div>
                 </div><br>
@@ -93,7 +93,7 @@
 
 <!--Movie Comments-->
 
-<div *ngFor="let comment of movieCommentResponsePrint">
+<div *ngFor="let comment of movieCommentResponsePrint | paginate:{ itemsPerPage: 3, currentPage: p }">
 <table width="100%"  style="padding-top: 10%;">
     <tr>
         <td>
@@ -151,6 +151,7 @@
     </tr>
 </table>
 </div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
 <button (click)="goBack()">Back</button>
 
 </body>

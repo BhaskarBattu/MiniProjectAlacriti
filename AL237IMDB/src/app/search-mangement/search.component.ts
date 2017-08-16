@@ -19,6 +19,8 @@ export class SearchComponent implements  OnInit{
   tvShowsList: TvShows[];
   searchResponsePrint: AllSearch[];
   searchCommentResponsePrint: any;
+  parsetvshowname: any;
+  prsetvshowimagepath: any;
 
   constructor (private searchService: SearchService,
                private route: ActivatedRoute,
@@ -28,6 +30,7 @@ export class SearchComponent implements  OnInit{
   ngOnInit() {
     this.route.params
       .subscribe((params: ParamMap) => { this.parseSearch = params['searchItemName'];});
+
 
     //    post service
   this.searchService.getSearchDetails(this.parseSearch)

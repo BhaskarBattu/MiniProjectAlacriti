@@ -23,8 +23,8 @@ public class UserDao extends BaseDAO{
 	public UserDao(){
 		
 	}
-	public void createUserRole(UserRegistration userRoleVO) {//throws DAOException{
-		//log.debugPrintCurrentMethodName();
+	public void createUserRole(UserRegistration userRoleVO) throws DAOException{
+		
 		PreparedStatement stmt = null,stmt1=null;
 		
 		ResultSet rs = null;
@@ -32,19 +32,13 @@ public class UserDao extends BaseDAO{
 		try {
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementCreateUserRole(getConnection(), sqlCmd,userRoleVO);
-			//System.out.println("Coming");
+			
 			stmt.setString(1, userRoleVO.getEmail());
 			rs= stmt.executeQuery();
-			//System.out.println("executed..."+ userRoleVO.getEmail());
-			/*if(rs!=null){
-				System.out.println("Exception in getPreparedStatementCreateUser bhaskar:flag");
-			}
-			else{
-				System.out.println("Exception in getPreparedStatementCreateUser:flag");
-			}*/
+			
 			if(!rs.next())
 			{
-				//System.out.println("Exception aman in getPreparedStatementCreate bhaskar:flag");
+				
 				stmt1 = getPreparedStatementCreateUserReg(getConnection(), sqlCmd,userRoleVO);
 				stmt1.setString(1, userRoleVO.getFirstName());
 				stmt1.setString(2, userRoleVO.getLastName());
@@ -54,38 +48,16 @@ public class UserDao extends BaseDAO{
 				stmt1.setString(6, userRoleVO.getEmail());
 				int count= stmt1.executeUpdate();
 				
-				//System.out.println("count is "+count);
 				if(count>0){
 					userRoleVO.setRegCreated(true);
 					getConnection().commit();
 				}
-			    //System.out.println(rs.getString(1));
+			   
 			}
-			/*else{
-				System.out.println("close connetion");
-				close(stmt, rs);
-			}*/
-			/*int i =getPreparedStatementCreateUserRole(getConnection(), sqlCmd,userRoleVO);
-			System.out.println("value sof i bhaskar"+i);
-			if(i!=0)
-			{
-				System.out.println("value sof i bhaskar"+1);
-				stmt=getPreparedStatementCreateUserReg(getConnection(), sqlCmd,userRoleVO);
-			}
-			//stmt.setInt(1,userRoleVO.getEmail());
-			stmt.setString(1, userRoleVO.getFirstName());
-			stmt.setString(2, userRoleVO.getPassword());
-			//log.logDebug("reached here********");
-			int count= stmt.executeUpdate();
-			if(count>0){
-				//userRoleVO.setRoleCreate(true);
-				System.out.println("Exception in getPreparedStatementCreateUser tharu");
-			}*/
+			
 		} catch (SQLException e) {
-			/*log.logError(
-					"SQLException in createUserRole " + e.getMessage(), e);
-			throw new DAOException("SQLException in createUserRole():", e);*/
 			System.out.println("SQLException in createUserRole()"+e);
+			throw new DAOException("SQLException in create user registration");
 		} finally {
 			close(stmt, rs);
 			close(stmt1,rs);
@@ -95,23 +67,10 @@ public class UserDao extends BaseDAO{
 	
 	public PreparedStatement getPreparedStatementCreateUserRole(Connection connection, String sqlCmd, UserRegistration usrReg) throws SQLException{
 		try {
-			/*
-			Statement st=connection.createStatement();
-			String nae=usrReg.getFirstName();
-			System.out.println("My name"+nae);
-			ResultSet rs = st.executeQuery("select * from dummy_login where name='"+nae+"'");
-			//System.out.println("rs printint"+rs.getString(1));
-			if(rs==null){
-				System.out.println("Exception in getPreparedStatementCreateUser bhaskar:flag");
-				return 0;
-			}else
-			{
-				return 1;
-			}*/
+			
 			return connection.prepareStatement("select email from Al237_imdb_user_details where email=?");
 			
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
 			System.out.println("Exception in getPrepared    Statement Create User  " + e.getMessage());
 			throw e;
 			
@@ -120,20 +79,20 @@ public class UserDao extends BaseDAO{
 	public PreparedStatement getPreparedStatementCreateUserReg(Connection connection, String sqlCmd, UserRegistration usrReg) throws SQLException{
 
 		try {			
-			//System.out.println("prepared tea here");
+			
 				return connection.prepareStatement("insert into Al237_imdb_user_details(firstname,lastname,password,address,mobilenumber,email) values(?,?,?,?,?,?)");
 			
 			
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			
 			System.out.println("Exception in getPreparedStatementCreateUser " + e.getMessage());
 			throw e;
 			
 		}
 	}
 	
-	public void checkUserLoginDAO(UserRegistration userRoleVO) {//throws DAOException{
-		//log.debugPrintCurrentMethodName();
+	public void checkUserLoginDAO(UserRegistration userRoleVO) throws DAOException{
+		
 		PreparedStatement stmt = null,stmt1=null;
 		
 		ResultSet rs = null;
@@ -141,11 +100,11 @@ public class UserDao extends BaseDAO{
 		try {
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementCheckUserLogin(getConnection(), sqlCmd,userRoleVO);
-			//System.out.println("Coming");
+			
 			stmt.setString(1, userRoleVO.getEmail());
 			stmt.setString(2, userRoleVO.getPassword());
 			rs= stmt.executeQuery();
-			//System.out.println("coming");
+			
 			if(rs.next())
 			{
 				userRoleVO.setRegCreated(true);
@@ -154,6 +113,7 @@ public class UserDao extends BaseDAO{
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
+			throw new DAOException("SQLException in checking user login");
 		} finally {
 			close(stmt, rs);
 			close(stmt1,rs);
@@ -164,15 +124,15 @@ public class UserDao extends BaseDAO{
 			return connection.prepareStatement("select email,password from Al237_imdb_user_details where email=? and password=?");
 			
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
 		}
 	}
 	
-	public ArrayList<TopRatedMovieTvshows> checkConectionLoginDAO(TopRatedMovieTvshows topRatedMovieTV) {//throws DAOException{
-		//log.debugPrintCurrentMethodName();
+	public ArrayList<TopRatedMovieTvshows> checkConectionLoginDAO(TopRatedMovieTvshows topRatedMovieTV) throws DAOException{
+		
 		ArrayList<TopRatedMovieTvshows> topmoviesTvs=new ArrayList<TopRatedMovieTvshows>();
 		PreparedStatement stmt = null,stmt1=null;
 		
@@ -182,7 +142,7 @@ public class UserDao extends BaseDAO{
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementTopRatedMovieTvShows(getConnection(), sqlCmd, topRatedMovieTV);
 			rs= stmt.executeQuery();
-			//System.out.println("coming tv");
+			
 			while(rs.next())
 			{
 				topRatedMovieTV.setMoviename(rs.getString(1));
@@ -192,6 +152,7 @@ public class UserDao extends BaseDAO{
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
+			throw new DAOException("SQLException");
 		} finally {
 			close(stmt, rs);
 			close(stmt1,rs);
@@ -203,27 +164,27 @@ public class UserDao extends BaseDAO{
 			return connection.prepareStatement("select moviename,description from Al237_imdb_movieslist");
 			
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
 		}
 	}
 	
-	public void displayMovieDetailsDAO(MovieDetails movieDetails) {//throws DAOException{
-		//log.debugPrintCurrentMethodName();
+	public void displayMovieDetailsDAO(MovieDetails movieDetails) throws DAOException{
+		
 		PreparedStatement stmt = null,stmt1=null;
 		
 		ResultSet rs = null;
 		ArrayList<MovieReturnFileds> movieReturn=new ArrayList<MovieReturnFileds>();
 		
-	//	MovieReturnFileds movieretunFileds;
+	
 		try {
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementMovieDetails(getConnection(), sqlCmd, movieDetails);
-			//stmt.setString(1, movieDetails.getMoviename());
+			
 			rs= stmt.executeQuery();
-			//System.out.println("movie coming");
+			
 			while(rs.next())
 			{
 						movieReturn.add(new  MovieReturnFileds(rs.getString(1),rs.getString(6),rs.getString(2),rs.getString(4),rs.getString(3),rs.getString(5)));
@@ -233,6 +194,7 @@ public class UserDao extends BaseDAO{
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
+			throw new DAOException("SQLException in movie details on Dashboard");
 		} finally {
 			close(stmt, rs);
 			close(stmt1,rs);
@@ -248,40 +210,38 @@ public class UserDao extends BaseDAO{
 							+ " ca.profession_id=cp.profession_id and ml.movie_id=gmt.movie_id and gmt.genre_id=ge.genre_id");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
 		}
 	}
 	
-	public void displaySearchDetailsDAO(String searchTerm,Search searcTerm) {//throws DAOException{
-		//log.debugPrintCurrentMethodName();
+	public void displaySearchDetailsDAO(String searchTerm,Search searcTerm) throws DAOException{
+		
 		PreparedStatement stmt = null,stmt1=null;
 		
 		ResultSet rs = null;
 		ArrayList<SearchAllThings> searchitms=new ArrayList<SearchAllThings>();
-		//ArrayList<String> searchitms=new ArrayList<String>();
 		
-	//	MovieReturnFileds movieretunFileds;
 		try {
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementSearchDetails(getConnection(), sqlCmd, searchTerm);
 			rs= stmt.executeQuery();
-			System.out.println("hai");
 			while(rs.next())
 			{
 						
 				searchitms.add(new SearchAllThings(rs.getString(1)));
-				//System.out.println(rs.getString(1));
+				
 					
 			}
 			searcTerm.setSearchAllItems(searchitms);
-			//System.out.println(searchitms.getSearchAllItems());
+			
 			getConnection().commit();
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
+			throw new DAOException("SQLException in search operation details list");
 		} finally {
 			close(stmt, rs);
 			close(stmt1,rs);
@@ -292,27 +252,27 @@ public class UserDao extends BaseDAO{
 			return connection.prepareStatement("select tvshowname from Al237_imdb_tvshowslist where tvshowname like '%"+searchTerm+"%' union select moviename from Al237_imdb_movieslist where moviename like '%"+searchTerm+"%'");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
 		}
 	}
 	
-	public void getSearchDetailsDAO(MovieDetails movieDetails) {//throws DAOException{
-		//log.debugPrintCurrentMethodName();
+	public void getSearchDetailsDAO(MovieDetails movieDetails) throws DAOException{
+		
 		PreparedStatement stmt = null,stmt1=null;
 		
 		ResultSet rs = null;
 		ArrayList<MovieReturnFileds> movieReturn=new ArrayList<MovieReturnFileds>();
 		
-	//	MovieReturnFileds movieretunFileds;
+	
 		try {
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementgetSearchDetails(getConnection(), sqlCmd, movieDetails);
-			//stmt.setString(1, movieDetails.getMoviename());
+			
 			rs= stmt.executeQuery();
-			//System.out.println("movie coming");
+			
 			while(rs.next())
 			{
 						movieReturn.add(new  MovieReturnFileds(rs.getString(1),rs.getString(6),rs.getString(2),rs.getString(4),rs.getString(3),rs.getString(5)));
@@ -322,6 +282,7 @@ public class UserDao extends BaseDAO{
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
+			throw new DAOException("SQLException in Getting search details");
 		} finally {
 			close(stmt, rs);
 			close(stmt1,rs);
@@ -343,7 +304,7 @@ public class UserDao extends BaseDAO{
 									+ " gtt.tvgenre_id=ge.tvgenre_id ");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
@@ -353,22 +314,22 @@ public class UserDao extends BaseDAO{
 		
 	}
 
-	public void getSearchItemCommentsDao(MovieComments movieComments) {//throws DAOException{
-		//log.debugPrintCurrentMethodName();
+	public void getSearchItemCommentsDao(MovieComments movieComments) throws DAOException{
+		
 		PreparedStatement stmt = null;
 		
 		ResultSet rs = null;
 		ArrayList<ListedMovieComments> movieCommentReturn=new ArrayList<ListedMovieComments>();
 		
-	//	MovieReturnFileds movieretunFileds;
+	
 		try {
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementSearchItemComments(getConnection(), sqlCmd, movieComments);
-			//stmt.setString(1, movieDetails.getMoviename());
+			
 			rs= stmt.executeQuery();
 			while(rs.next())
 			{
-				//System.out.println("get string"+rs.getString(1));
+				
 				movieCommentReturn.add(new ListedMovieComments(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getDate(5)));		
 			}
 			movieComments.setListedMovieComments(movieCommentReturn);
@@ -376,6 +337,7 @@ public class UserDao extends BaseDAO{
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
+			throw new DAOException("SQLException in getting search item comments");
 		} finally {
 			close(stmt, rs);
 		}
@@ -383,7 +345,7 @@ public class UserDao extends BaseDAO{
 	public PreparedStatement getPreparedStatementSearchItemComments(Connection connection, String sqlCmd, MovieComments movieComments) throws SQLException{
 		try {
 			String movie= movieComments.getMoviename();
-		//	System.out.println(movie);
+		
 			return connection.prepareStatement("select ud.firstname,ud.lastname,ra.rating,ra.comments,ra.rating_date "
 					+ "from Al237_imdb_Rating as ra, Al237_imdb_movieslist as ml, Al237_imdb_user_details as ud "
 					+ "where ra.movie_id=ml.movie_id and ra.userid=ud.userid and ml.moviename='"+movie+"'"
@@ -392,25 +354,23 @@ public class UserDao extends BaseDAO{
 					+ " where ra.tvshows_id=tl.tvshows_id and ra.userid=ud.userid and tl.tvshowname='"+movie+"'");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
 		}
 	}
 	
-	public void insertUserCommentsDao(UserCommnets userCommnets) {//throws DAOException{
-		//log.debugPrintCurrentMethodName();
+	public void insertUserCommentsDao(UserCommnets userCommnets) throws DAOException{
+		
 		PreparedStatement stmt = null;
 		PreparedStatement stmt1 = null,stmt11=null;
-		PreparedStatement stmt2 = null;
+		PreparedStatement stmt2 = null,stmt22=null;
 		
 		ResultSet rs = null,rs1=null,rs2=null;
 		int userid=0;
 		int tvshowid=0;
-		//ArrayList<ListedMovieComments> movieCommentReturn=new ArrayList<ListedMovieComments>();
 		
-	//	MovieReturnFileds movieretunFileds;
 		try {
 			String sqlCmd = "sql command";
 			stmt= getPreparedStatementUserId(getConnection(), userCommnets);
@@ -418,12 +378,10 @@ public class UserDao extends BaseDAO{
 			stmt1= getPreparedStatementMovieId(getConnection(), userCommnets); //movielist
 			
 			stmt2= getPreparedStatementTvShowId(getConnection(), userCommnets);// tvshowlist
-			//stmt.setString(1, movieDetails.getMoviename());
-			System.out.println("Gh");
+			
 			rs= stmt.executeQuery();
 			rs1= stmt1.executeQuery();
 			rs2= stmt2.executeQuery();
-			
 			
 			if(rs.next())
 			{
@@ -440,34 +398,31 @@ public class UserDao extends BaseDAO{
 					if(count>0)
 					{
 						userCommnets.setValidComment(true);
+						
 					}
 				}
 				
 			}
-			if(rs2.next())
+			else if(rs2.next())
 			{
 				 tvshowid=rs2.getInt(1);
 				 if(tvshowid!=0)
 					{
-						stmt11=getPreparedStatementUserCommentsTvShowsrating(getConnection(), userCommnets, userid, tvshowid);
-						int count=stmt11.executeUpdate();
+						stmt22=getPreparedStatementUserCommentsTvShowsrating(getConnection(), userCommnets, userid, tvshowid);
+						int count=stmt22.executeUpdate();
 						if(count>0)
 						{
 							userCommnets.setValidComment(true);
+							
 						}
 					}
 			}
 			
-			/*while(rs.next())
-			{
-				//System.out.println("get string"+rs.getString(1));
-				movieCommentReturn.add(new ListedMovieComments(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getDate(5)));		
-			}
-			movieComments.setListedMovieComments(movieCommentReturn);*/
 			getConnection().commit();
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
+			throw new DAOException("SQLException in Inserting movie or tvshow comments");
 		} finally {
 			close(stmt, rs);
 		}
@@ -475,11 +430,9 @@ public class UserDao extends BaseDAO{
 	public PreparedStatement getPreparedStatementUserId(Connection connection,UserCommnets userCommnets) throws SQLException{
 		try {
 			String movie= userCommnets.getUsername();
-		//	System.out.println(movie);
 			return connection.prepareStatement("select userid from Al237_imdb_user_details where email='"+movie+"'");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
@@ -488,11 +441,9 @@ public class UserDao extends BaseDAO{
 	public PreparedStatement getPreparedStatementMovieId(Connection connection,UserCommnets userCommnets) throws SQLException{
 		try {
 			String movie= userCommnets.getMovieortvshow();
-		//	System.out.println(movie);
 			return connection.prepareStatement("select movie_id from Al237_imdb_movieslist where moviename='"+movie+"'");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
@@ -501,11 +452,10 @@ public class UserDao extends BaseDAO{
 	public PreparedStatement getPreparedStatementTvShowId(Connection connection,UserCommnets userCommnets) throws SQLException{
 		try {
 			String movie= userCommnets.getMovieortvshow();
-		//	System.out.println(movie);
 			return connection.prepareStatement("select tvshows_id from Al237_imdb_tvshowslist where tvshowname='"+movie+"'");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
+			
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			
@@ -516,12 +466,10 @@ public class UserDao extends BaseDAO{
 		try {
 			double rating= userCommnets.getRating();
 			String comments=userCommnets.getTextareacomment();
-		//	System.out.println(movie);
 			return connection.prepareStatement("insert into Al237_imdb_Rating(userid,movie_id,rating,rating_date,comments) values("+userid+","+movieid+","+rating+",CURRENT_TIMESTAMP(),'"+comments+"')");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
-			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
+			System.out.println("Exception in getPreparedStatementCreateUser" + e.getMessage());
 			throw e;
 			
 		}
@@ -530,11 +478,9 @@ public class UserDao extends BaseDAO{
 		try {
 			double rating= userCommnets.getRating();
 			String comments=userCommnets.getTextareacomment();
-		//	System.out.println(movie);
 			return connection.prepareStatement("insert into Al237_imdb_tvshow_Rating(userid,tvshows_id,rating_date,rating,comments) values("+userid+","+tvshowid+",CURRENT_TIMESTAMP(),"+rating+",'"+comments+"')");
 				
 		} catch (SQLException e) {
-			//log.logError("Exception in getPreparedStatementCreateUser " + e.getMessage(), e);
 			System.out.println("Exception in getPreparedStatementCreateUser  " + e.getMessage());
 			throw e;
 			

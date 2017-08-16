@@ -98,7 +98,7 @@
 
 <!--TvShow Comments-->
 
-<div *ngFor="let comment of tvShowComments">
+<div *ngFor="let comment of tvShowComments | paginate:{ itemsPerPage: 3, currentPage: p }">
 <table width="100%"  style="padding-top: 10%;">
     <tr>
         <td>
@@ -155,7 +155,9 @@
         </td>
     </tr>
 </table>
+
 </div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
 <button (click)="goBack()">Back</button>
 
 </body>

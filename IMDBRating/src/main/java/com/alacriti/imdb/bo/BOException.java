@@ -30,7 +30,7 @@ public class BOException extends BaseException {
 		this(msg, null, errorCode);
 	}
 
-	/*public BOException(String msg) {
-		this(msg, null, ErrorConstants.ERR_GENERIC_DAO);
-	}*/
+	public BOException(String msg) {
+		super(msg);
+	}
 }

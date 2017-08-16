@@ -22,31 +22,29 @@ public class BaseDAO {
 		this.connection = connection;
 	}
 	public void close(ResultSet rs) {
-		//log.debugPrintCurrentMethodName();
 		if (rs != null) {
 			try {
 				rs.close();
 			} catch (Exception e) {
-				//log.logError("Exception in close " + e.getMessage(), e);
 				System.out.println("Exception in close " + e.getMessage());
 			}
 		}
 	}
 
 	public void close(Statement stmt) {
-		//log.debugPrintCurrentMethodName();
+		
 		if (stmt != null) {
 			try {
 				stmt.close();
 			} catch (Exception e) {
-				//log.logError("Exception in close " + e.getMessage(), e);
+				
 				System.out.println("Exception in close " + e.getMessage());
 			}
 		}
 	}
 
 	public void close(PreparedStatement stmt, ResultSet rs) {
-		//log.debugPrintCurrentMethodName();
+		
 		close(stmt);
 		close(rs);
 
