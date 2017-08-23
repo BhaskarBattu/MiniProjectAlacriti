@@ -51,53 +51,32 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
+    /*this.username= sessionStorage.getItem('username');
+    this.isloginers= sessionStorage.getItem('valid');*/
     this.username=window.localStorage.getItem('username');
     this.isloginers=window.localStorage.getItem('valid');
-    this.signinService.referehbrowser.subscribe(status => this.browserStatus = status);
-
-    if( this.browserStatus!==false) {
-      this.signinService.changes.subscribe(status => this.isloginers = status);
-      this.signinService.username.subscribe(name => this.username = name);
-    }
-    /*if(this.username!=null)
-    {
-      this.isloginers=window.localStorage.getItem('valid');
-      //this.signinService.changes.subscribe(status => this.isloginers = status);
-      this.refresh=true;
-
-
-    }
-
-    this.signinService.referehbrowser.subscribe(status => this.browserStatus = status);
-   /!* if(this.browserStatus==true)
-    {
-      console.log(this.browserStatus);
-      this.refresh=false;
-    }*!/
-    if(this.refresh==false || this.browserStatus==true){
-
-      this.signinService.changes.subscribe(status => this.isloginers = status);
-      this.signinService.username.subscribe(name=>this.username =name);
-
-    }*/
-      //this.signinService.referehbrowser.subscribe(status => this.isloginers = status);
-      //this.signinService.username.subscribe(name=>this.username =name);
-
-
-
 
   }
 
 
-  onClickSignIn(){
+  /*onClickDashboard(){
     this.router.navigate(['/dashboard']);
-  }
 
+  }
+  onClickMovies(){
+    window.location.reload();
+  }
+  onClickTvShows(){window.location.reload();}
+  onClickRegistration(){window.location.reload();}
+  onClickLogout(){
+    window.location.reload();
+  }*/
   gotoDetail(searchName: any) {
 
    this.router.navigate(['/search/'+ searchName, {searchItemName: searchName}]);
     this.searchTh =null;
     this.noresult=true;
+    window.location.reload();
     //this.searchTh =[];
     //this.router.navigate(['/']);
   }

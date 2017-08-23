@@ -4,7 +4,7 @@
 <table><tr><td>
     <div class="container">
         <div class="grid grid-pad">
-            <a *ngFor="let movieloop of moviesList | paginate:{ itemsPerPage: 4, currentPage: 1 }" (click)="onClickMovie(movieloop.movieId, movieloop.movieName, movieloop.imagePath, movieloop.avgRating, movieloop.count)"   routerLinkActive="active" class="col-1-4 ">
+            <a *ngFor="let movieloop of moviesList" (click)="onClickMovie(movieloop.movieId, movieloop.movieName, movieloop.imagePath, movieloop.avgRating, movieloop.count)"   routerLinkActive="active" class="col-1-4 ">
                 <div class="module movie">
                     <h4><img class="image" src="{{movieloop.imagePath}}"/></h4>
 
@@ -22,7 +22,7 @@
 <table ><tr><td>
     <div class="container">
         <div class="grid grid-pad">
-            <a *ngFor="let tvShowloop of tvShowsList | paginate:{ itemsPerPage: 4, currentPage: q } " (click)="onClickTvShow(tvShowloop.tvShowsID, tvShowloop.tvShowName,tvShowloop.tvshowImagePath, tvShowloop.avgRating, tvShowloop.memberscount)"   routerLinkActive="active" class="col-1-4">
+            <a *ngFor="let tvShowloop of tvShowsList" (click)="onClickTvShow(tvShowloop.tvShowsID, tvShowloop.tvShowName,tvShowloop.tvshowImagePath, tvShowloop.avgRating, tvShowloop.memberscount)"   routerLinkActive="active" class="col-1-4">
                 <div class="module tvshow">
                     <h4><img class="image" src="{{tvShowloop.tvshowImagePath}}"/></h4>
                 </div>
@@ -31,6 +31,5 @@
     </div>
 </td>
 </tr>
-  <pagination-controls (pageChange)="q = $event"></pagination-controls>
 </table>
 <br>

@@ -33,18 +33,21 @@ export class SigninCmponent implements OnInit
       this.signinService.login(this.userForm.value).subscribe((response) => {
             if (response.ok === true) {
                 this.userLoginResponse = response.json();
+                console.log(this.userLoginResponse);
                 if (this.userLoginResponse !== true) {
                     alert('Invalid user name plese log in');
                     this.router.navigate(['/signin']);
+
                 } else {
+                  alert('You are successfully signed in');
                    this.getUserRes.emit(this.userForm.value.email);
-                   window.localStorage.setItem('username',this.userForm.value.email)
-                  window.localStorage.setItem('valid','true');
-                  this.signinService.changes.next(true);
-                  this.signinService.referehbrowser.next(true);
-                   this.signinService.username.next(this.userForm.value.email);
-                   //console.log(this.userForm.value.email);
                    this.router.navigate(['/']);
+                  localStorage.setItem('username',this.userForm.value.email);
+                  localStorage.setItem('valid','true');
+
+                  /*sessionStorage.setItem('username',this.userForm.value.email);
+                  sessionStorage.setItem('valid','true');*/
+                  location.reload();
                 }
             }
         });

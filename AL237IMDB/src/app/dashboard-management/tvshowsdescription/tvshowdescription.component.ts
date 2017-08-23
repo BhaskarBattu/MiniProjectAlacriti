@@ -37,7 +37,7 @@ export  class TvshowdescriptionComponent implements OnInit {
         this.tvshowDescService.getTVshowDetails(this.parsetvshowname)
             .subscribe((tvShowResponse) => {
                 this.tvShowClickedResponse = tvShowResponse.json();
-                
+
             });
         //for TVSHOW comments
        this.tvshowDescService.getTVshowComments(this.parsetvshowname)
@@ -50,5 +50,6 @@ export  class TvshowdescriptionComponent implements OnInit {
     }
   goRating(tvshowname: any, tvshowimage): void {
     this.router.navigate(['/rating/',{giveratingName:tvshowname, giveratingImage: tvshowimage}]);
+
   }
 }

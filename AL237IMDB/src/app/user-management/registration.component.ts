@@ -61,13 +61,12 @@ export class RegistrationComponent implements  OnInit{
                 if (this.responseRegistration === true) {
                   window.localStorage.setItem('username',this.userForm.value.email)
                   window.localStorage.setItem('valid','true');
-                  this.signinService.changes.next(true);
-                  this.signinService.username.next(this.userForm.value.email);
-                  this.signinService.referehbrowser.next(true);
                     this.router.navigate(['/']);
+                    window.location.reload();
                 } else {
                     alert('username is already exists plese log in');
                     this.router.navigate(['/signin']);
+                  window.location.reload();
                 }
             }
         });

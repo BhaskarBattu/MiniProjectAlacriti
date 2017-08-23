@@ -36,7 +36,7 @@ public class TvShowsDao extends BaseDAO{
 				tvShowReturn.add(new ListTopTvshows(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getInt(5)));		
 			}
 			topTvshows.setListTvShows(tvShowReturn);
-			getConnection().commit();
+			
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
@@ -81,7 +81,7 @@ public class TvShowsDao extends BaseDAO{
 						
 			}
 			tvShowDetails.setTvshowDetailListGett(tvShowReturn);
-			getConnection().commit();
+			
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
@@ -127,7 +127,7 @@ public class TvShowsDao extends BaseDAO{
 				tvShowCommentReturn.add(new ListedTvShowComments(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getDate(5)));		
 			}
 			tvShowComments.setListedTvShowComments(tvShowCommentReturn);
-			getConnection().commit();
+			
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);

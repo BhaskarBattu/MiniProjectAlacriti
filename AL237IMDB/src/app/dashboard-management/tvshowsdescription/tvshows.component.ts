@@ -29,6 +29,7 @@ export class TvshowsComponent implements OnInit {
   onClickTvShow(tvshowid: any, tvshowname: any, tvshowpath: any, tvshowRating: any, memberscount: any){
     this.router.navigate(['/dashboard/tvshowDescription/' + tvshowid, {tid: tvshowid, tvshowname: tvshowname,
       tvshowImgPath: tvshowpath, tvshowAvRating: tvshowRating, tvshowRatingMemberCount: memberscount }]);
+    window.location.reload();
 
   }
 }

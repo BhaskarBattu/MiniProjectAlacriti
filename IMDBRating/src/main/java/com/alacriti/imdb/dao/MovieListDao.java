@@ -34,7 +34,7 @@ public class MovieListDao extends BaseDAO{
 				movieReturn.add(new ListTopMovies(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getInt(5)));		
 			}
 			topMovies.setListTopMovies(movieReturn);
-			getConnection().commit();
+			
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);
@@ -75,7 +75,7 @@ public class MovieListDao extends BaseDAO{
 				movieCommentReturn.add(new ListedMovieComments(rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getDate(5)));		
 			}
 			movieComments.setListedMovieComments(movieCommentReturn);
-			getConnection().commit();
+			
 			
 		} catch (SQLException e) {
 			System.out.println("SQLException in createUserRole()"+e);

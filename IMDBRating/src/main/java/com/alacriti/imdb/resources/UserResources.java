@@ -21,7 +21,6 @@ import com.alacriti.imdb.model.vo.MovieDetails;
 import com.alacriti.imdb.model.vo.MovieReturnFileds;
 import com.alacriti.imdb.model.vo.Search;
 import com.alacriti.imdb.model.vo.SearchAllThings;
-import com.alacriti.imdb.model.vo.TopRatedMovieTvshows;
 import com.alacriti.imdb.model.vo.UserCommnets;
 import com.alacriti.imdb.model.vo.UserRegistration;
 
@@ -80,17 +79,6 @@ public class UserResources {
 			HttpSession session= request.getSession();
 		}
 		return usrLoginCheck.isRegCreated();
-	}
-	
-	
-	@GET
-	@Path("/onDashboardDispaly")
-	@Produces(MediaType.APPLICATION_JSON)
-	 public TopRatedMovieTvshows displayTopRatedMovieTvShows(TopRatedMovieTvshows topRatedMovieTV)
-	{
-		UserDelegate usrDelegate=new UserDelegate();
-		usrDelegate.checkLoginConnection(topRatedMovieTV);
-		return topRatedMovieTV;
 	}
 	
 	@POST

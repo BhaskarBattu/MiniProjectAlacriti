@@ -24,5 +24,6 @@ moviesTotalList: Movie[];
   onClickMovie(movieid: any, moviename: any, moviepath: any, avgRating: any, memberCount: any) {
     this.router.navigate(['/dashboard/movieDescription/' + movieid, {id: movieid, moviename: moviename,
       movieImgPath: moviepath, movieAvRating: avgRating, movieRatingMemberCount: memberCount }]);
+    window.location.reload();
   }
 }

@@ -20,13 +20,14 @@ export class DashboardComponent implements OnInit {
               private dashBoardServie: DashboardService) { }
     ngOnInit(): void {
 
+
       this.dashBoardServie.getMoviesWithObservable()
         .subscribe(data => {
-          this.moviesList = data}
+          this.moviesList = data.slice(0,4)}
         );
      this.dashBoardServie.getTvShowsWithObservable()
         .subscribe(tvshowsdata => {
-          this.tvShowsList = tvshowsdata
+          this.tvShowsList = tvshowsdata.slice(0,4)
         });
 
     }
@@ -34,10 +35,12 @@ export class DashboardComponent implements OnInit {
   onClickMovie(movieid: any, moviename: any, moviepath: any, avgRating: any, memberCount: any) {
     this.router.navigate(['/dashboard/movieDescription/' + movieid, {id: movieid, moviename: moviename,
       movieImgPath: moviepath, movieAvRating: avgRating, movieRatingMemberCount: memberCount }]);
+    window.location.reload();
   }
   onClickTvShow(tvshowid: any, tvshowname: any, tvshowpath: any, tvshowRating: any, memberscount: any){
     this.router.navigate(['/dashboard/tvshowDescription/' + tvshowid, {tid: tvshowid, tvshowname: tvshowname,
       tvshowImgPath: tvshowpath, tvshowAvRating: tvshowRating, tvshowRatingMemberCount: memberscount }]);
+    window.location.reload();
 
   }
 }

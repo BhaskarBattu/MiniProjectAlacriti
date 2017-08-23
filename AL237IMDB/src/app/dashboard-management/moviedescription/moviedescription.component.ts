@@ -51,5 +51,6 @@ export  class MoviedescriptionComponent implements OnInit {
   }
   goRating(moviename: any, movieimage): void {
     this.router.navigate(['/rating/',{giveratingName:moviename, giveratingImage: movieimage}]);
+
   }
 }

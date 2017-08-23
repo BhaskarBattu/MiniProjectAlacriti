@@ -26,14 +26,15 @@ export  class LogoutComponent implements OnInit{
               alert('please try again');
               this.router.navigate(['/']);
             } else {
-              this.signinService.changes.next(false);
-              this.signinService.referehbrowser.next(false);
-              this.signinService.username.next("null");
+              this.router.navigate(['/']);
+             location.reload();
+             /*sessionStorage.removeItem('username');
+             sessionStorage.removeItem('valid');*/
               window.localStorage.removeItem('username');
               window.localStorage.removeItem('valid');
-              alert('you are successfully logged out');
-              this.router.navigate(['/']);
+              alert('You are successfully logged out');
             }
+
           }
 
         });

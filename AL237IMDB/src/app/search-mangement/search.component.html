@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Movie Description</title>
-</head>
+
 <body>
 
 <table  align="center">
@@ -19,9 +14,6 @@
         <img class="image" src="{{searchResponsePrint[0].imagePath}} " alt="image"/>
       </div>
     </td>
-    <!--<td style="text-align: right; width: 100%">
-       <h2> Movie Name:{{this.parseSearch}}</h2>
-    </td>-->
   <td width="80%" height="100%" align="cneter">
     <div *ngFor="let itemsOfSearch of searchResponsePrint">
       <div class="module movie">
@@ -34,16 +26,13 @@
 
   </td>
 </tr>
- <!-- <div *ngIf="searchResponsePrint">
-    <span style="padding-left: 25%;padding-bottom: 100%; color: #039be5">GenreType:</span>:<span style="padding-right:15%;color: black;font-size: 100%;padding-left: 2%;color: black">{{searchResponsePrint[0].genreType}}</span>
-  </div>-->
 
   <tr>
     <td colspan="1">
 
     </td>
     <td align="center">
-      <div><span style="padding-left: 5%;padding-top: 10% color: firebrick">Average Rating For Movie : </span>
+      <div><span style="padding-left: 5%;padding-top: 10%; color: firebrick">Average Rating For Movie : </span>
         <div *ngFor="let movieloop of moviesList">
           <div *ngIf="this.parseSearch===(movieloop.movieName)">
             <div *ngIf="4.5<movieloop.avgRating && 5>=movieloop.avgRating ">
@@ -70,7 +59,7 @@
             <div *ngIf="1<movieloop.avgRating && 1.5>=movieloop.avgRating ">
               <div><img src="assets/stat_1.jpg" width="40%" height="20%"></div>
             </div>
-            <span style="padding-left: 5%; color: firebrick">The average Rating is : </span><span style="font-size: 100%;padding-right: 15%;color: black">  {{movieloop.avgRating}}</span>
+            <span style="padding-left: 5%; color: firebrick">The average Rating is : </span><span style="font-size: 100%;padding-right: 15%;color: black">  {{movieloop.avgRating | number: '1.2-2'}}</span>
           </div>
         </div>
         <div *ngFor="let tvshowloop of tvShowsList">
@@ -99,7 +88,7 @@
             <div *ngIf="1<tvshowloop.avgRating && 1.5>=tvshowloop.avgRating ">
               <div><img src="assets/stat_1.jpg" width="40%" height="20%"></div>
             </div>
-            <span style="padding-left: 5%; color: firebrick">The average Rating is : </span><span style="font-size: 100%;padding-right: 15%;color: black">  {{tvshowloop.avgRating}}</span>
+            <span style="padding-left: 5%; color: firebrick">The average Rating is : </span><span style="font-size: 100%;padding-right: 15%;color: black">  {{tvshowloop.avgRating | number: '1.2-2'}}</span>
           </div>
         </div>
        </div>
@@ -113,7 +102,8 @@
       <h2 style="color: #0b5849"> Scroll Down For Comments</h2>
     </td>
     <td>
-      <button (click)="goRating(this.parsetvshowname, this.prsetvshowimagepath)">Want To Give Rating</button>
+      <!--<button (click)="goRating(this.parsetvshowname, this.prsetvshowimagepath)">Want To Give Rating</button>-->
+      <button (click)="goRating(this.parseSearch, searchResponsePrint[0].imagePath)">Want To Give Rating</button>
     </td>
   </tr>
 </table>
@@ -130,9 +120,9 @@
         <p style="color: darkred">{{comment.lastName}}</p>
       </td>
       <td style="width: 37%;padding-left:2%; color: black">
-        <p>Raing Given Date: {{comment.date}}</p>
+        <p>Rating Given Date: {{comment.date}}</p>
       </td>
-      <td width="20%"><span style="color:blue">My Rating is: {{comment.rating}}</span></td>
+      <td width="20%"><span style="color:blue"> Rating is: {{comment.rating}}</span></td>
       <td style="">
         <div>
           <div *ngIf="4.5<comment.rating && 5>=comment.rating ">
@@ -181,4 +171,3 @@
 <pagination-controls (pageChange)="p = $event"></pagination-controls>
 <button (click)="goBack()">Back</button>
 </body>
-</html>
